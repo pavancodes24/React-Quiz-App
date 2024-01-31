@@ -1,52 +1,195 @@
 [
   {
     "id": "01",
-    "question": "Which of the following is the correct name of React.js?",
-    "options": ["React", "React.js", "ReactJS", "All of the above"],
-    "answer": "All of the above"
-  },
-  {
-    "id": "02",
-    "question": "Which of the following are the advantages of React.js?",
+    "question": "What is Amazon Pay used for?",
     "options": [
-      "React.js can increase the application's performance with Virtual DOM.",
-      "React.js is easy to integrate with other frameworks such as Angular, BackboneJS since it is only a view library.",
-      "React.js can render both on client and server side.",
+      "Online shopping on Amazon.in",
+      "Bill payments and mobile recharges",
+      "Scan and pay on any UPI QR",
+      "Booking flight tickets and movie shows",
       "All of the above"
     ],
     "answer": "All of the above"
   },
   {
-    "id": "03",
-    "question": "Which of the following is not a disadvantage of React.js?",
+    "id": "02",
+    "question": "Is there an expiry date for using the money loaded in Amazon Pay Wallet?",
     "options": [
-      "React.js has only a view layer. We have put your code for Ajax requests, events and so on.",
-      "The library of React.js is pretty large.",
-      "The JSX in React.js makes code easy to read and write.",
-      "The learning curve can be steep in React.js."
+      "No",
+      "Yes, 12 months from the date of adding",
+      "Yes, 6 months from the date of adding",
+      "Yes, 24 months from the date of adding"
     ],
-    "answer": "The JSX in React.js makes code easy to read and write."
+    "answer": "No"
+  },
+  {
+    "id": "03",
+    "question": "Can money from Amazon Pay Wallet be transferred to a bank account or another UPI user",
+    "options": [
+      "Yes, to both",
+      "No, to both",
+      "Yes, to a bank but not to another user",
+      "Yes, to another user but not to a bank"
+    ],
+    "answer": "Yes, to both"
   },
   {
     "id": "04",
-    "question": "Which of the following command is used to install create-react-app?",
+    "question": "Can you pay your utility bill using Amazon Pay?",
     "options": [
-      "npm install -g create-react-app",
-      "npx create-react-app my-app",
-      "npm install create-react-app",
-      "npm install -f create-react-app"
+      "Yes, all utility bills",
+      "No",
+      "Only for water and electricity",
+      "Only for broadband and DTH"
     ],
-    "answer": "npx create-react-app my-app"
+    "answer": "Yes, all utility bills"
   },
   {
     "id": "05",
-    "question": "What of the following is used in React.js to increase performance?",
+    "question": "Can you use Amazon Pay to scan and pay for offline store purchases?",
     "options": [
-      "Original DOM",
-      "Virtual DOM",
-      "Both A and B.",
-      "None of the above."
+      "Yes, can scan and Pay any UPI QR",
+      "No",
+      "Only in select cities",
+      "Only in select stores"
     ],
-    "answer": "Virtual DOM"
+    "answer": "Yes, can scan and Pay any UPI QR"
+  },
+
+  {
+    "id": "06",
+    "question": "How much cashback do Prime customers get for each purchase made on Amazon.in using Amazon Pay ICICI Credit Card?",
+    "options": ["5%", "1%", "2%", "20%"],
+    "answer": "5%"
+  },
+
+  {
+    "id": "07",
+    "question": "Which charities can you donate to using Amazon Pay?",
+    "options": [
+      "Akshaya Patra Foundation",
+      "HelpAge India",
+      "Milaap",
+      "All of the above, and more"
+    ],
+    "answer": "All of the above, and more"
+  },
+
+  {
+    "id": "08",
+    "question": "Which of these is a feature on Amazon Pay?",
+    "options": [
+      "Scan and Pay any UPI QR",
+      "Pay to Mobile Number",
+      "Bank Transfers",
+      "All of the above",
+      "None of the above"
+    ],
+    "answer": "All of the above"
+  },
+
+  {
+    "id": "09",
+    "question": "Where can you find Amazon Pay?",
+    "options": [
+      "It is on your bank mobile app",
+      "You have to download Amazon Pay app from Google Playstore or Apple App Store",
+      "On the Amazon.in app - you already have it",
+      "None of the above"
+    ],
+    "answer": "On the Amazon.in app - you already have it"
+  },
+
+  {
+    "id": "10",
+    "question": "Which of the following merchant apps and websites accept Amazon Pay",
+    "options": [
+      "Swiggy",
+      "BookMyShow",
+      "Uber",
+      "All of the above, and 20,000 more merchant apps and websites"
+    ],
+    "answer": "All of the above, and 20,000 more merchant apps and websites"
+  },
+
+  {
+    "id": "11",
+    "question": "Amazon Pay Later allows you to:",
+    "options": [
+      "Buy now and pay next month",
+      "Convert your payment into EMIs",
+      "Both of the above",
+      "None of the above"
+    ],
+    "answer": "Both of the above"
+  },
+
+  {
+    "id": "12",
+    "question": "Which of these cards cannot be saved for payments with Amazon Pay?",
+    "options": ["Credit Card", "Debit Card", "Ration Card"],
+    "answer": "Ration Card"
+  },
+
+  {
+    "id": "13",
+    "question": "How can you add money your Amazon Pay balance?",
+    "options": [
+      "Net Banking",
+      "UPI",
+      "Load cash at door step",
+      "All of the above"
+    ],
+    "answer": "All of the above"
+  },
+
+  {
+    "id": "14",
+    "question": "Does Amazon Pay offer travel insurance?",
+    "options": ["Yes", "No"],
+    "answer": "Yes"
+  },
+
+  {
+    "id": "15",
+    "question": "Can you buy digital gold using Amazon Pay?",
+    "options": ["Yes", "No", "Only on specific occasions"],
+    "answer": "Yes"
+  },
+
+  {
+    "id": "16",
+    "question": "Is there a fee to maintain an Amazon Pay balance account?",
+    "options": ["No", "Yes"],
+    "answer": "No"
+  },
+  {
+    "id": "17",
+    "question": "What is the convenience fee to pay bills on Amazon Pay?",
+    "options": ["0%", "1%", "Depends on bill amount", "5%"],
+    "answer": "0%"
+  },
+  {
+    "id": "18",
+    "question": "How much cashback do customers get for bill payments using Amazon Pay ICICI Credit Card?",
+    "options": ["Unlimited 2%", "0%", "7.5%", "20%"],
+    "answer": "Unlimited 2%"
+  },
+  {
+    "id": "19",
+    "question": "What is the maximum amount of cash that can be loaded at your door step in Amazon Pay Wallet per month?",
+    "options": ["50,000", "5,100", "999", "Unlimited"],
+    "answer": "50,000"
+  },
+  {
+    "id": "20",
+    "question": "What can Amazon Pay Gift Card be used for?",
+    "options": [
+      "Shopping from 15+ Cr products on Amazon.in",
+      "Pay on 20,000+ merchants websites & apps",
+      "Travel & movie ticket bookings",
+      "All of the above"
+    ],
+    "answer": "All of the above"
   }
 ]

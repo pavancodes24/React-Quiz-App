@@ -16,7 +16,7 @@ const Result = () => {
   async function updateMarks() {
     const { data2, error2 } = await supabase
       .from('users')
-      .update({ score: marks })
+      .update({ score: marks / 5 })
       .eq('mobile', sessionStorage.getItem('mobile'))
       .select();
   }
@@ -42,7 +42,7 @@ const Result = () => {
                 {marks > (quizs.length * 5) / 2 ? 'Awesome!' : 'Oops!'}
               </h1>
               <h3 className="mb-3 fw-bold">
-                Your score is {marks} out of {quizs.length * 5}
+                Your score is {marks / 5} out of {quizs.length}
               </h3>
 
               <button
