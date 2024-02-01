@@ -30,7 +30,7 @@ const Result = () => {
       className=" text-white"
       style={{
         display: `${showResult ? 'block' : 'none'}`,
-        backgroundColor: '#FFD700',
+        backgroundColor: '#FF9900',
       }}
     >
       <div className="container">

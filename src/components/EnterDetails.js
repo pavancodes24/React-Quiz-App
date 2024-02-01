@@ -48,7 +48,7 @@ const EnterDetails = () => {
       <section
         className=" text-white"
         // style={{ display: `${showQuiz ? 'none' : 'block'}` }}
-        style={{ backgroundColor: '#FFD700' }}
+        style={{ backgroundColor: '#FF9900' }}
       >
         <div className="container">
           <div className="row vh-100 align-items-center justify-content-center">
