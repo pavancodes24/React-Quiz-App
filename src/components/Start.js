@@ -10,8 +10,11 @@ const Start = () => {
   const { startQuiz, showStart } = useContext(DataContext);
   return (
     <section
-      className="text-white text-center bg-dark"
-      style={{ display: `${showStart ? 'block' : 'none'}` }}
+      className="text-white text-center"
+      style={{
+        display: `${showStart ? 'block' : 'none'}`,
+        backgroundColor: '#FFD700',
+      }}
     >
       <div className="container">
         <div className="row vh-100 align-items-center justify-content-center">

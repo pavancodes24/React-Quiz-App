@@ -16,8 +16,6 @@ const Admin = () => {
   }, []);
 
   async function getCountries() {
-   
-
     sessionStorage.removeItem('mobile');
 
     let { data: users, error } = await supabase.from('users').select('*');
@@ -25,7 +23,7 @@ const Admin = () => {
   }
 
   return !show ? (
-    <section className="bg-dark text-white">
+    <section className=" text-white" style={{ backgroundColor: '#FFD700' }}>
       <div className="container">
         <div className="row vh-100 align-items-center justify-content-center">
           <div className="col-lg-8">

@@ -27,8 +27,11 @@ const Result = () => {
 
   return (
     <section
-      className="bg-dark text-white"
-      style={{ display: `${showResult ? 'block' : 'none'}` }}
+      className=" text-white"
+      style={{
+        display: `${showResult ? 'block' : 'none'}`,
+        backgroundColor: '#FFD700',
+      }}
     >
       <div className="container">
         <div className="row vh-100 align-items-center justify-content-center">
