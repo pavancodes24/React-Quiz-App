@@ -73,6 +73,7 @@ export const DataProvider = ({ children }) => {
 
   // Next Quesion
   const nextQuestion = () => {
+    // console.log('inside');
     setCorrectAnswer('');
     setSelectedAnswer('');
     const wrongBtn = document.querySelector('button.bg-danger');

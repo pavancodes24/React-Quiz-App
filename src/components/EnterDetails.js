@@ -34,14 +34,14 @@ const EnterDetails = () => {
         .insert([{ name: data.name, email: data.email, mobile: data.mobile }])
         .select();
 
-      console.log(output);
+      // console.log(output);
       sessionStorage.setItem('mobile', data.mobile);
       navigate('/');
     } else {
       alert('number already exists');
     }
 
-    console.log(users, 'data');
+    // console.log(users, 'data');
   }
   return (
     <div>

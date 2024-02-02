@@ -11,7 +11,7 @@ const supabase = createClient(
 const Result = () => {
   const { showResult, quizs, marks, startOver } = useContext(DataContext);
 
-  console.log(marks, 'testingonit', quizs);
+  // console.log(marks, 'testingonit', quizs);
 
   async function updateMarks() {
     const { data2, error2 } = await supabase

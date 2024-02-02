@@ -14,6 +14,47 @@ const Quiz = () => {
     showTheResult,
   } = useContext(DataContext);
 
+  // console.log(question, 'question');
+  const [seconds, setSeconds] = React.useState(9);
+  const [change, setChange] = React.useState(false);
+
+  React.useEffect(() => {
+    console.log(questionIndex, 'finaleindex');
+
+    if (showQuiz) {
+      const timer = setInterval(() => {
+        setSeconds((prevSeconds) => {
+          if (quizs.indexOf(question) + 1 == 5) {
+            showTheResult();
+            return;
+          }
+          if (prevSeconds == 0) {
+            if (quizs.indexOf(question) + 1 == 5) {
+              showTheResult();
+              return;
+            }
+
+            // console.log(
+            //   'yesdone',
+            //   quizs.length,
+            //   Quiz.length,
+            //   quizs.indexOf(question) + 1
+            // );
+            else {
+              nextQuestion();
+              return 9;
+            }
+          }
+          return prevSeconds - 1;
+        });
+      }, 1000);
+
+      // Cleanup function to clear the interval when the component unmounts
+      return () => clearInterval(timer);
+    }
+  }, [showQuiz, questionIndex]);
+
+  // console.log(seconds, 'timer');
   return (
     <section
       className=" text-white"
@@ -23,6 +64,21 @@ const Quiz = () => {
       }}
     >
       <div className="container">
+        <div className="text-black">
+          <div
+            style={{
+              display: 'flex',
+              gap: '5px',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <div>
+              <img src="/stopwatch.png" alt="" width={'30'} height={'30'} />
+            </div>
+            {<div>00:0{seconds}</div>}
+          </div>
+        </div>
         <div className="row vh-100 align-items-center justify-content-center">
           <div className="col-lg-8">
             <div
@@ -58,7 +114,11 @@ const Quiz = () => {
               {questionIndex + 1 !== quizs.length ? (
                 <button
                   className="btn py-2 w-100 mt-3 bg-primary text-light fw-bold"
-                  onClick={nextQuestion}
+                  onClick={() => {
+                    nextQuestion();
+                    setChange(!change);
+                    setSeconds(9);
+                  }}
                   disabled={!selectedAnswer}
                 >
                   Next Question
