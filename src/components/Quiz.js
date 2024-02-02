@@ -19,7 +19,7 @@ const Quiz = () => {
       className=" text-white"
       style={{
         display: `${showQuiz ? 'block' : 'none'}`,
-        backgroundColor: '#FF9900',
+        backgroundColor: '#FDDB4D',
       }}
     >
       <div className="container">

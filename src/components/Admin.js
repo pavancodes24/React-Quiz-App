@@ -23,7 +23,7 @@ const Admin = () => {
   }
 
   return !show ? (
-    <section className=" text-white" style={{ backgroundColor: '#FF9900' }}>
+    <section className=" text-white" style={{ backgroundColor: '#FDDB4D' }}>
       <div className="container">
         <div className="row vh-100 align-items-center justify-content-center">
           <div className="col-lg-8">
@@ -56,7 +56,7 @@ const Admin = () => {
     </section>
   ) : (
     <div>
-      <section className=" text-white" style={{ backgroundColor: '#FF9900' }}>
+      <section className=" text-white" style={{ backgroundColor: '#FDDB4D' }}>
         <div className="container">
           <div className="row vh-100 align-items-center justify-content-center">
             <div className="col-lg-8">

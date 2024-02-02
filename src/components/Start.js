@@ -13,7 +13,7 @@ const Start = () => {
       className="text-white text-center"
       style={{
         display: `${showStart ? 'block' : 'none'}`,
-        backgroundColor: '#FF9900',
+        backgroundColor: '#FDDB4D',
       }}
     >
       <div className="container">
