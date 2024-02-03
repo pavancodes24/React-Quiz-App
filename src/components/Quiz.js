@@ -19,7 +19,7 @@ const Quiz = () => {
   const [change, setChange] = React.useState(false);
 
   React.useEffect(() => {
-    console.log(questionIndex, 'finaleindex');
+    // console.log(questionIndex, 'finaleindex');
 
     if (showQuiz) {
       const timer = setInterval(() => {

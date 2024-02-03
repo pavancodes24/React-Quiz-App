@@ -10,6 +10,7 @@ export const DataProvider = ({ children }) => {
   const [correctAnswer, setCorrectAnswer] = useState('');
   const [selectedAnswer, setSelectedAnswer] = useState('');
   const [marks, setMarks] = useState(0);
+  const [change, setChange] = useState(false);
 
   // Display Controlling States
   const [showStart, setShowStart] = useState(true);
@@ -41,7 +42,7 @@ export const DataProvider = ({ children }) => {
         let ot = getRandomElements(data, 5);
         setQuizs(ot);
       });
-  }, []);
+  }, [change]);
 
   // Set a Single Question
   useEffect(() => {
@@ -92,6 +93,7 @@ export const DataProvider = ({ children }) => {
 
   // Start Over
   const startOver = () => {
+    setChange(!change);
     setShowStart(false);
     setShowResult(false);
     setShowQuiz(true);

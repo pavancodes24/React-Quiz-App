@@ -51,7 +51,9 @@ const Result = () => {
               <button
                 onClick={() => {
                   sessionStorage.removeItem('mobile');
+
                   startOver();
+                  // window.location.reload();
                 }}
                 className="btn py-2 px-4 btn-light fw-bold d-inline"
               >
