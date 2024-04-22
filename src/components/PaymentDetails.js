@@ -20,7 +20,7 @@ const PayByRazorPay = () => {
             address: 'some address'
         },
         theme: {
-            color: '#FFA500', // orange color
+            color: '#FF9900', // orange color
             hide_topbar: false
         }
     };
@@ -40,7 +40,15 @@ const PayByRazorPay = () => {
     return (
         <div className="pay-container">
             <button className="pay-button" onClick={openPayModal}>
-                <span>Pay with Razorpay</span>
+                <span>
+                    <img
+                        src="https://res.cloudinary.com/sivadass/image/upload/v1493610045/icons/amex.svg"
+                        alt="Amex"
+                        width="25"
+                        height="25"
+                    />
+                    Pay with Razorpay
+                </span>
             </button>
             <style jsx>{`
                 .pay-container {
@@ -71,6 +79,9 @@ const PayByRazorPay = () => {
                     display: flex;
                     justify-content: center;
                     align-items: center;
+                }
+                .pay-button span img {
+                    margin-right: 10px;
                 }
                 .pay-button span::after {
                     content: '';
