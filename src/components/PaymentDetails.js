@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-const PayByRazorPay = () => {
+const PayByRazorPayUPI = () => {
     const options = {
         key: 'rzp_live_eCiBctdExNpJVL',
         amount: '100', //  = INR 1
@@ -20,7 +20,7 @@ const PayByRazorPay = () => {
             address: 'some address'
         },
         theme: {
-            color: '#FF9900', // orange color
+            color: '#FFA500', // orange color
             hide_topbar: false
         }
     };
@@ -28,6 +28,29 @@ const PayByRazorPay = () => {
     const openPayModal = () => {
         var rzp1 = new window.Razorpay(options);
         rzp1.open();
+    };
+
+    const collectUPI = () => {
+        const upiOptions = {
+            amount: 100,
+            email: 'demo@demo.com',
+            contact: '9999999999',
+            order_id: 'order_123',
+            method: 'upi',
+            upi: {
+                vpa: 'gauravkumar@somebank',
+                flow: 'collect'
+            }
+        };
+
+        window.Razorpay.createPayment(upiOptions)
+            .then((response) => {
+                console.log(response);
+                alert(response.razorpay_payment_id);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     };
 
     useEffect(() => {
@@ -38,63 +61,32 @@ const PayByRazorPay = () => {
     }, []);
 
     return (
-        <div className="pay-container">
-            <button className="pay-button" onClick={openPayModal}>
-                <span>
-                    <img
-                        src="https://res.cloudinary.com/sivadass/image/upload/v1493610045/icons/amex.svg"
-                        alt="Amex"
-                        width="25"
-                        height="25"
-                    />
-                    Pay with Razorpay
-                </span>
-            </button>
-            <style jsx>{`
-                .pay-container {
-                    width: 100%;
-                    max-width: 300px;
-                    margin: 0 auto;
-                    padding: 20px;
-                    border: 1px solid #ddd;
-                    border-radius: 8px;
-                    background-color: #fff;
-                    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-                }
-                .pay-button {
-                    width: 100%;
-                    background-color: #f35d21;
-                    border: none;
-                    color: #fff;
-                    font-size: 18px;
-                    padding: 15px 0;
-                    border-radius: 6px;
-                    cursor: pointer;
-                    transition: background-color 0.3s ease;
-                }
-                .pay-button:hover {
-                    background-color: #e64a19;
-                }
-                .pay-button span {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                }
-                .pay-button span img {
-                    margin-right: 10px;
-                }
-                .pay-button span::after {
-                    content: '';
-                    background: url('https://res.cloudinary.com/sivadass/image/upload/v1493607354/icons/arrow.svg')
-                        no-repeat center;
-                    margin-left: 5px;
-                    width: 20px;
-                    height: 20px;
-                    display: inline-block;
-                }
-            `}</style>
+        <div style={styles.container}>
+            <button style={styles.button} onClick={collectUPI}>Pay with UPI (Razorpay)</button>
         </div>
     );
 };
 
-export default PayByRazorPay;
+const styles = {
+    container: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh'
+    },
+    button: {
+        padding: '15px 25px',
+        fontSize: '16px',
+        fontWeight: 'bold',
+        color: 'white',
+        backgroundColor: '#f32d2d',
+        border: 'none',
+        borderRadius: '5px',
+        cursor: 'pointer',
+        boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
+        transition: 'background-color 0.3s',
+        outline: 'none',
+    }
+};
+
+export default PayByRazorPayUPI;
