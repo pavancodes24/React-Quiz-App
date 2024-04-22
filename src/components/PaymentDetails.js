@@ -1,92 +1,87 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
-const PayByRazorPayUPI = () => {
-    const options = {
-        key: 'rzp_live_eCiBctdExNpJVL',
-        amount: '100', //  = INR 1
-        name: 'Acme shop',
-        description: 'some description',
-        image: 'https://cdn.razorpay.com/logos/7K3b6d18wHwKzL_medium.png',
-        handler: function(response) {
-            console.log(response);
-            alert(response.razorpay_payment_id);
-        },
-        prefill: {
-            name: 'Gaurav',
-            contact: '9999999999',
-            email: 'demo@demo.com'
-        },
-        notes: {
-            address: 'some address'
-        },
-        theme: {
-            color: '#FFA500', // orange color
-            hide_topbar: false
-        }
-    };
-
-    const openPayModal = () => {
-        var rzp1 = new window.Razorpay(options);
-        rzp1.open();
-    };
-
-    const collectUPI = () => {
-        const upiOptions = {
-            amount: 100,
-            email: 'demo@demo.com',
-            contact: '9999999999',
-            order_id: 'order_123',
-            method: 'upi',
-            upi: {
-                vpa: 'gauravkumar@somebank',
-                flow: 'collect'
+const PayByRazorPay = () => {
+  const [availableApps, setAvailableApps] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://checkout.razorpay.com/v1/razorpay.js';
+    script.async = true;
+    script.onload = () => {
+      const razorpay = new window.Razorpay({ key: 'rzp_live_eCiBctdExNpJVL' });
+      razorpay.on('rzp_device_unsupported', () => {
+        alert('UPI is not supported on this device.');
+      });
+      razorpay.on('ready', () => {
+        razorpay.getSupportedUpiIntentApps()
+          .then((response) => {
+            if (response.apps.length > 0) {
+              setAvailableApps(response.apps);
+            } else {
+              setError("No UPI payment apps available.");
             }
-        };
-
-        window.Razorpay.createPayment(upiOptions)
-            .then((response) => {
-                console.log(response);
-                alert(response.razorpay_payment_id);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
+          })
+          .catch(() => {
+            setError("Error fetching UPI payment apps.");
+          });
+      });
     };
+    script.onerror = () => {
+      setError("Error loading Razorpay script.");
+    };
+    document.body.appendChild(script);
+  }, []);
 
-    useEffect(() => {
-        const script = document.createElement('script');
-        script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-        script.async = true;
-        document.body.appendChild(script);
-    }, []);
+  const initiateUPIPayment = (app) => {
+    setIsLoading(true);
+    const paymentData = {
+      amount: 100, // amount in paise (100 equals ₹1)
+      method: 'upi',
+      contact: '9000090000', // customer's mobile number
+      email: 'gaurav.kumar@example.com', // customer's email address
+      order_id: 'order_00000000000001', // and other payment parameters, as usual
+    };
+    
+    const razorpay = new window.Razorpay({ key: 'rzp_live_eCiBctdExNpJVL' });
+    razorpay.createPayment(paymentData, { app: app })
+      .then((response) => {
+        setIsLoading(false);
+        console.log(response);
+        alert(`Payment successful. Payment ID: ${response.razorpay_payment_id}`);
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        console.error(error);
+        alert('Payment failed.');
+      });
+  };
 
-    return (
-        <div style={styles.container}>
-            <button style={styles.button} onClick={collectUPI}>Pay with UPI (Razorpay)</button>
+  return (
+    <div>
+      {error ? (
+        <div>
+          <h2>{error}</h2>
         </div>
-    );
+      ) : availableApps.length > 0 ? (
+        <div>
+          <h2>Select UPI Payment App</h2>
+          <ul>
+            {availableApps.map((app, index) => (
+              <li key={index}>
+                <button onClick={() => initiateUPIPayment(app)} disabled={isLoading}>{app}</button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : (
+        <div>
+          <h2>Loading...</h2>
+        </div>
+      )}
+    </div>
+  );
 };
 
-const styles = {
-    container: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh'
-    },
-    button: {
-        padding: '15px 25px',
-        fontSize: '16px',
-        fontWeight: 'bold',
-        color: 'white',
-        backgroundColor: '#f32d2d',
-        border: 'none',
-        borderRadius: '5px',
-        cursor: 'pointer',
-        boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)',
-        transition: 'background-color 0.3s',
-        outline: 'none',
-    }
-};
-
-export default PayByRazorPayUPI;
+export default PayByRazorPay;
