@@ -6,6 +6,7 @@ import { DataProvider } from './context/dataContext';
 import { Route, Routes } from 'react-router-dom';
 import Admin from './components/Admin';
 import EnterDetails from './components/EnterDetails';
+import PaymentDetails from './components/PaymentDetails';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/admin" element={<Admin />} />
         <Route path="/user-details" element={<EnterDetails />} />
+        <Route path="/payment" element={<PaymentDetails />} />
         <Route
           path="/"
           element={
