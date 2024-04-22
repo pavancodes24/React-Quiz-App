@@ -41,12 +41,12 @@ const PayByRazorPay = () => {
 
   const initiateUPIPayment = () => {
     if (isMobile) {
-      const UPI_URL = `upi://pay?pa=pavanc1997-2@okhdfcbank@upi&pn=pavan&am=10&cu=INR&tn=done&appId=razorpay`;
-      const WEB_URL = `https://www.bhimupi.org.in/payment?pa=yourvpa@upi&pn=RECIPIENT_NAME&am=AMOUNT&cu=INR&tn=TRANSACTION_NOTE`;
+      const UPI_URL = `upi://pay?pa=pavanc1997-2@okhdfcbank&pn=amazon-quizz&am=1&cu=INR&tn=payment%20for%20quizz&appId=amazon%20quizz%20game`;
+      const WEB_URL = `https://www.bhimupi.org.in/payment?pa=pavanc1997-2@okhdfcbank&pn=amazon-quizz&am=1&cu=INR&tn=payment%20for%20quizz`;
 
       window.open(UPI_URL, '_self');
     } else {
-      console.log('UPI payment is only available on mobile devices.');
+      console.log("UPI payment is only available on mobile devices.");
     }
   };
 
