@@ -3,21 +3,25 @@ import React, { useEffect, useState } from 'react';
 const PayByRazorPay = () => {
   const [availableApps, setAvailableApps] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
+  
   useEffect(() => {
     const script = document.createElement('script');
     script.src = 'https://checkout.razorpay.com/v1/razorpay.js';
     script.async = true;
     script.onload = () => {
-      const razorpay = new window.Razorpay({ key: '<YOUR_KEY_ID>' });
-      razorpay
-        .getSupportedUpiIntentApps()
-        .then((response) => {
-          setAvailableApps(response.apps);
-        })
-        .catch(() => {
-          setAvailableApps([]);
-        });
+      const razorpay = new window.Razorpay({ key: 'rzp_live_eCiBctdExNpJVL' });
+      razorpay.on('rzp_device_unsupported', () => {
+        alert('UPI is not supported on this device.');
+      });
+      razorpay.on('ready', () => {
+        razorpay.getSupportedUpiIntentApps()
+          .then((response) => {
+            setAvailableApps(response.apps);
+          })
+          .catch(() => {
+            setAvailableApps([]);
+          });
+      });
     };
     document.body.appendChild(script);
   }, []);
@@ -31,16 +35,13 @@ const PayByRazorPay = () => {
       email: 'gaurav.kumar@example.com', // customer's email address
       order_id: 'order_00000000000001', // and other payment parameters, as usual
     };
-
+    
     const razorpay = new window.Razorpay({ key: 'rzp_live_eCiBctdExNpJVL' });
-    razorpay
-      .createPayment(paymentData, { app: app })
+    razorpay.createPayment(paymentData, { app: app })
       .then((response) => {
         setIsLoading(false);
         console.log(response);
-        alert(
-          `Payment successful. Payment ID: ${response.razorpay_payment_id}`
-        );
+        alert(`Payment successful. Payment ID: ${response.razorpay_payment_id}`);
       })
       .catch((error) => {
         setIsLoading(false);
@@ -57,12 +58,7 @@ const PayByRazorPay = () => {
           <ul>
             {availableApps.map((app, index) => (
               <li key={index}>
-                <button
-                  onClick={() => initiateUPIPayment(app)}
-                  disabled={isLoading}
-                >
-                  {app}
-                </button>
+                <button onClick={() => initiateUPIPayment(app)} disabled={isLoading}>{app}</button>
               </li>
             ))}
           </ul>
