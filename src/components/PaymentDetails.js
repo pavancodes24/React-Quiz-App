@@ -1,60 +1,79 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const PayByRazorPay = () => {
-  const options = {
-    key: 'rzp_live_eCiBctdExNpJVL',
-    amount: '100', //  = INR 1
-    name: 'Acme shop',
-    description: 'some description',
-    image: 'https://cdn.razorpay.com/logos/7K3b6d18wHwKzL_medium.png',
-    handler: function (response) {
-      console.log(response);
-      alert(response.razorpay_payment_id);
-    },
-    prefill: {
-      name: 'Gaurav',
-      contact: '9999999999',
-      email: 'demo@demo.com',
-    },
-    notes: {
-      address: 'some address',
-    },
-    theme: {
-      color: 'blue',
-      hide_topbar: false,
-    },
-  };
-
-  const openPayModal = () => {
-    var rzp1 = new window.Razorpay(options);
-    rzp1.open();
-  };
+  const [availableApps, setAvailableApps] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const script = document.createElement('script');
-    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    script.src = 'https://checkout.razorpay.com/v1/razorpay.js';
     script.async = true;
+    script.onload = () => {
+      const razorpay = new window.Razorpay({ key: '<YOUR_KEY_ID>' });
+      razorpay
+        .getSupportedUpiIntentApps()
+        .then((response) => {
+          setAvailableApps(response.apps);
+        })
+        .catch(() => {
+          setAvailableApps([]);
+        });
+    };
     document.body.appendChild(script);
   }, []);
 
-  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  const initiateUPIPayment = (app) => {
+    setIsLoading(true);
+    const paymentData = {
+      amount: 100000, // amount in paise (100000 equals ₹1000)
+      method: 'upi',
+      contact: '9000090000', // customer's mobile number
+      email: 'gaurav.kumar@example.com', // customer's email address
+      order_id: 'order_00000000000001', // and other payment parameters, as usual
+    };
 
-  const initiateUPIPayment = () => {
-    if (isMobile) {
-      const UPI_URL = `upi://pay?pa=pavanc1997-2@okhdfcbank&pn=amazon-quizz&am=1&cu=INR&tn=payment%20for%20quizz&appId=amazon%20quizz%20game`;
-      const WEB_URL = `https://www.bhimupi.org.in/payment?pa=pavanc1997-2@okhdfcbank&pn=amazon-quizz&am=1&cu=INR&tn=payment%20for%20quizz`;
-
-      window.open(UPI_URL, '_self');
-    } else {
-      console.log("UPI payment is only available on mobile devices.");
-    }
+    const razorpay = new window.Razorpay({ key: 'rzp_live_eCiBctdExNpJVL' });
+    razorpay
+      .createPayment(paymentData, { app: app })
+      .then((response) => {
+        setIsLoading(false);
+        console.log(response);
+        alert(
+          `Payment successful. Payment ID: ${response.razorpay_payment_id}`
+        );
+      })
+      .catch((error) => {
+        setIsLoading(false);
+        console.error(error);
+        alert('Payment failed.');
+      });
   };
 
   return (
-    <>
-      <button onClick={openPayModal}>Pay with Razorpay</button>
-      {isMobile && <button onClick={initiateUPIPayment}>Pay with UPI</button>}
-    </>
+    <div>
+      {availableApps.length > 0 && (
+        <div>
+          <h2>Select UPI Payment App</h2>
+          <ul>
+            {availableApps.map((app, index) => (
+              <li key={index}>
+                <button
+                  onClick={() => initiateUPIPayment(app)}
+                  disabled={isLoading}
+                >
+                  {app}
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {availableApps.length === 0 && (
+        <div>
+          <h2>No UPI Payment Apps Available</h2>
+        </div>
+      )}
+    </div>
   );
 };
 
