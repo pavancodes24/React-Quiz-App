@@ -2,6 +2,7 @@ import React from 'react';
 
 import { createClient } from '@supabase/supabase-js';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const supabase = createClient(
   'https://hovpyzfjuyoqjlakwxjd.supabase.co',
@@ -10,6 +11,7 @@ const supabase = createClient(
 
 const EnterDetails = () => {
   const [detail, setDetail] = React.useState({});
+  const [createOrderData, setCreateOrderData] = React.useState({});
   const navigate = useNavigate('');
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,6 +20,38 @@ const EnterDetails = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     insertData(detail);
+  };
+  const createOrderApi = async () => {
+    console.log('calling data');
+    try {
+      const username = 'BD3D7A887BB490A8F789475ACB075A';
+      const password = '';
+      const basicAuth = 'Basic ' + btoa(username + ':' + password);
+      // const basicAuth =
+      //   'Basic ' + Buffer.from(username + ':' + password).toString('base64');
+
+      const requestBody = {
+        order_id: 'orderone2234',
+        amount: '1.00',
+        customer_id: 'customerone1234234234',
+      };
+      const response = await axios.post(
+        'https://api.juspay.in/orders',
+        requestBody,
+        {
+          headers: {
+            Authorization: basicAuth,
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+            'x-merchantid': 'nexsusit',
+          },
+        }
+      );
+      console.log(response, 'response data');
+      setCreateOrderData(response.data);
+      navigate('/');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   async function insertData(data) {
@@ -36,7 +70,7 @@ const EnterDetails = () => {
 
       // console.log(output);
       sessionStorage.setItem('mobile', data.mobile);
-      navigate('/');
+      createOrderApi();
     } else {
       alert('number already exists');
     }
