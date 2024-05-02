@@ -16,10 +16,12 @@ const PaymentDetails = () => {
     setLoading(true);
     async function datagetParam() {
       try {
-        let base_url = `https://quizbackend-48178f0f17c2.herokuapp.com`;
-        let apiLink = `${base_url}/api/v1/order/getSdkParams`;
-        let { data } = await axios.get(apiLink, { orderId: dataOne });
-        // setIntentUrlDetails(data);
+        const base_url = `https://quizbackend-48178f0f17c2.herokuapp.com`;
+        const apiLink = `${base_url}/api/v1/order/getSdkParams`;
+        // Pass orderId as part of the URL query string
+        const { data } = await axios.get(apiLink, {
+          params: { orderId: dataOne },
+        });
         sessionStorage.setItem('tr', data?.sdk_params?.tr);
         setLoading(false);
       } catch (error) {
