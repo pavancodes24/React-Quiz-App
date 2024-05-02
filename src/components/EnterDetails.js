@@ -24,13 +24,11 @@ const EnterDetails = () => {
   };
 
   let base_url = `https://quizbackend-48178f0f17c2.herokuapp.com`;
-  async function callOrderData(info) {
+  async function callOrderData() {
     let apilink = `${base_url}/api/v1/order/getorders`;
-    let { data } = await axios.post(apilink, {
-      customer_email: info.email,
-      customer_mobile: info.mobile,
-    });
+    let { data } = await axios.get(apilink);
     sessionStorage.setItem('orderId', data.order_id);
+    sessionStorage.setItem('walletLink', data.payment_links.web);
     navigate('/payment');
     console.log(data);
   }
@@ -50,7 +48,7 @@ const EnterDetails = () => {
         .select();
 
       // console.log(output);
-      callOrderData(data);
+      callOrderData();
       sessionStorage.setItem('mobile', data.mobile);
     } else {
       alert('number already exists');
