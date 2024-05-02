@@ -14,17 +14,20 @@ const PaymentDetails = () => {
   if (!dataOne) navigate('/user-details');
   React.useEffect(() => {
     setLoading(true);
-    try {
-      let base_url = `https://quizbackend-48178f0f17c2.herokuapp.com`;
-      let apiLink = `${base_url}/api/v1/order/getSdkParams`;
-      let { data } = axios.get(apiLink, { orderId: dataOne });
-      // setIntentUrlDetails(data);
-      sessionStorage.setItem('tr', data?.sdk_params?.tr);
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-      setErr(true);
+    async function datagetParam() {
+      try {
+        let base_url = `https://quizbackend-48178f0f17c2.herokuapp.com`;
+        let apiLink = `${base_url}/api/v1/order/getSdkParams`;
+        let { data } = await axios.get(apiLink, { orderId: dataOne });
+        // setIntentUrlDetails(data);
+        sessionStorage.setItem('tr', data?.sdk_params?.tr);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        setErr(true);
+      }
     }
+    datagetParam();
   }, []);
   // document.body.style.backgroundColor = '#FDDB4D';
 
