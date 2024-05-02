@@ -10,6 +10,7 @@ const PaymentDetails = () => {
 
   const navigate = useNavigate();
   let userId = sessionStorage.getItem('userId');
+  console.log(userId, 'testing');
   if (!userId) navigate('/user-details');
   React.useEffect(() => {
     setLoading(true);
