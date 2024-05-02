@@ -16,7 +16,7 @@ const PaymentDetails = () => {
     try {
       let base_url = `https://quizbackend-48178f0f17c2.herokuapp.com`;
       let apiLink = `${base_url}/api/v1/order/getSdkParams`;
-      let { data } = axios.get(apiLink);
+      let { data } = axios.get(apiLink, { orderId: userId });
       setIntentUrlDetails(data);
       setLoading(false);
     } catch (error) {
