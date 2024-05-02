@@ -12,6 +12,7 @@ const supabase = createClient(
 const EnterDetails = () => {
   const [detail, setDetail] = React.useState({});
   const [createOrderData, setCreateOrderData] = React.useState({});
+  const [orderapi, setOrderApi] = React.useState({});
   const navigate = useNavigate('');
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,38 +22,15 @@ const EnterDetails = () => {
     e.preventDefault();
     insertData(detail);
   };
-  const createOrderApi = async () => {
-    console.log('calling data');
-    try {
-      const username = 'BD3D7A887BB490A8F789475ACB075A';
-      const password = '';
-      const basicAuth = 'Basic ' + btoa(username + ':' + password);
-      // const basicAuth =
-      //   'Basic ' + Buffer.from(username + ':' + password).toString('base64');
 
-      const requestBody = {
-        order_id: 'orderone2234',
-        amount: '1.00',
-        customer_id: 'customerone1234234234',
-      };
-      const response = await axios.post(
-        'https://api.juspay.in/orders',
-        requestBody,
-        {
-          headers: {
-            Authorization: basicAuth,
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-            'x-merchantid': 'nexsusit',
-          },
-        }
-      );
-      console.log(response, 'response data');
-      setCreateOrderData(response.data);
-      navigate('/');
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  let base_url = `https://quizbackend-48178f0f17c2.herokuapp.com`;
+  async function callOrderData() {
+    let apilink = `${base_url}/api/v1/order/getorders`;
+    let { data } = await axios.get(apilink);
+    sessionStorage.setItem('orderId', data.order_id);
+    navigate('/payment');
+    console.log(data);
+  }
 
   async function insertData(data) {
     let { data: users, errorCheck } = await supabase
@@ -69,8 +47,8 @@ const EnterDetails = () => {
         .select();
 
       // console.log(output);
+      callOrderData();
       sessionStorage.setItem('mobile', data.mobile);
-      createOrderApi();
     } else {
       alert('number already exists');
     }
