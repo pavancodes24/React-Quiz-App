@@ -18,7 +18,8 @@ const PaymentDetails = () => {
       let base_url = `https://quizbackend-48178f0f17c2.herokuapp.com`;
       let apiLink = `${base_url}/api/v1/order/getSdkParams`;
       let { data } = axios.get(apiLink, { orderId: userId });
-      setIntentUrlDetails(data);
+      // setIntentUrlDetails(data);
+      sessionStorage.setItem('tr', data?.sdk_params?.tr);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -33,7 +34,9 @@ const PaymentDetails = () => {
   ) : (
     <div>
       <a
-        href={`intent://play/?pa=avisenterprises695278.rzp@axisbank&pn=AVISENTERPRISES&mc=7372&tr=${intentUrlDetails?.sdk_params?.tr}&am=1.00#Intent;scheme=upi;package=in.amazon.mShop.android.shopping;end`}
+        href={`intent://play/?pa=avisenterprises695278.rzp@axisbank&pn=AVISENTERPRISES&mc=7372&tr=${sessionStorage.getItem(
+          'tr'
+        )}&am=1.00#Intent;scheme=upi;package=in.amazon.mShop.android.shopping;end`}
         class="button1"
       >
         Amazon Pay UPI
