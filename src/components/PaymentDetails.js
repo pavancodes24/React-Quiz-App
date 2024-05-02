@@ -17,7 +17,12 @@ const PaymentDetails = () => {
     try {
       let base_url = `https://quizbackend-48178f0f17c2.herokuapp.com`;
       let apiLink = `${base_url}/api/v1/order/getSdkParams`;
-      let { data } = axios.get(apiLink, { orderId: dataOne });
+      let { data } = axios.get(apiLink, {
+        // Optionally, you can pass a body with a GET request, but it's not recommended.
+        data: {
+          orderId: dataOne,
+        },
+      });
       // setIntentUrlDetails(data);
       sessionStorage.setItem('tr', data?.sdk_params?.tr);
       setLoading(false);
