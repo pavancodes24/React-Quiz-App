@@ -26,7 +26,10 @@ const EnterDetails = () => {
   let base_url = `https://quizbackend-48178f0f17c2.herokuapp.com`;
   async function callOrderData() {
     let apilink = `${base_url}/api/v1/order/getorders`;
-    let { data } = await axios.get(apilink);
+    let { data } = await axios.get(apilink, {
+      customer_email: detail.email,
+      customer_mobile: detail.mobile,
+    });
     sessionStorage.setItem('orderId', data.order_id);
     navigate('/payment');
     console.log(data);
@@ -55,6 +58,7 @@ const EnterDetails = () => {
 
     // console.log(users, 'data');
   }
+
   return (
     <div>
       <section
