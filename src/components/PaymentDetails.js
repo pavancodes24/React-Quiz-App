@@ -9,15 +9,15 @@ const PaymentDetails = () => {
   const [intentUrlDetails, setIntentUrlDetails] = React.useState('');
 
   const navigate = useNavigate();
-  let userId = sessionStorage.getItem('userId');
-  console.log(userId, 'testing');
-  if (!userId) navigate('/user-details');
+  let orderId = sessionStorage.getItem('orderId');
+
+  if (!orderId) navigate('/user-details');
   React.useEffect(() => {
     setLoading(true);
     try {
       let base_url = `https://quizbackend-48178f0f17c2.herokuapp.com`;
       let apiLink = `${base_url}/api/v1/order/getSdkParams`;
-      let { data } = axios.get(apiLink, { orderId: userId });
+      let { data } = axios.get(apiLink, { orderId: orderId });
       // setIntentUrlDetails(data);
       sessionStorage.setItem('tr', data?.sdk_params?.tr);
       setLoading(false);
