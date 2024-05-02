@@ -26,7 +26,7 @@ const EnterDetails = () => {
   let base_url = `https://quizbackend-48178f0f17c2.herokuapp.com`;
   async function callOrderData(info) {
     let apilink = `${base_url}/api/v1/order/getorders`;
-    let { data } = await axios.get(apilink, {
+    let { data } = await axios.post(apilink, {
       customer_email: info.email,
       customer_mobile: info.mobile,
     });
