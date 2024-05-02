@@ -19,9 +19,7 @@ const PaymentDetails = () => {
         const base_url = `https://quizbackend-48178f0f17c2.herokuapp.com`;
         const apiLink = `${base_url}/api/v1/order/getSdkParams`;
         // Pass orderId as part of the URL query string
-        const { data } = await axios.get(apiLink, {
-          params: { orderId: dataOne },
-        });
+        const { data } = await axios.get(apiLink, { orderId: dataOne });
         sessionStorage.setItem('tr', data?.sdk_params?.tr);
         setLoading(false);
       } catch (error) {
