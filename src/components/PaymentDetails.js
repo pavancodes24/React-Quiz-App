@@ -17,11 +17,14 @@ const PaymentDetails = () => {
     async function datagetParam() {
       try {
         const base_url = `https://quizbackend-48178f0f17c2.herokuapp.com`;
+        const url = 'localhost:7001';
         const apiLink = `${base_url}/api/v1/order/getSdkParams`;
-        // Pass orderId as part of the URL query string
-        const { data } = await axios.get(apiLink, { orderId: dataOne });
-        sessionStorage.setItem('tr', data?.sdk_params?.tr);
-        setLoading(false);
+        console.log(dataOne, 'dataone');
+        if (dataOne) {
+          const { data } = await axios.post(apiLink, { orderId: dataOne });
+          sessionStorage.setItem('tr', data?.sdk_params?.tr ?? '');
+          setLoading(false);
+        }
       } catch (error) {
         setLoading(false);
         setErr(true);
