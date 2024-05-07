@@ -6,8 +6,6 @@ const PaymentDetails = () => {
   const [loading, setLoading] = React.useState(true);
   const [err, setErr] = React.useState(false);
 
-  const [intentUrlDetails, setIntentUrlDetails] = React.useState('');
-
   const navigate = useNavigate();
   let dataOne = sessionStorage.getItem('orderId');
 
@@ -17,7 +15,6 @@ const PaymentDetails = () => {
     async function datagetParam() {
       try {
         const base_url = `https://quizbackend-48178f0f17c2.herokuapp.com`;
-        const url = 'localhost:7001';
         const apiLink = `${base_url}/api/v1/order/getSdkParams`;
         console.log(dataOne, 'dataone');
         if (dataOne) {
@@ -37,6 +34,11 @@ const PaymentDetails = () => {
   const redirectToUPI = () => {
     const transactionId = sessionStorage.getItem('tr');
     const url = `intent://play/?pa=avisenterprises695278.rzp@axisbank&pn=AVISENTERPRISES&mc=7372&tr=${transactionId}&am=1.00#Intent;scheme=upi;package=in.amazon.mShop.android.shopping;end`;
+    window.location.href = url;
+  };
+  const redirectToUPIAPPLE = () => {
+    const transactionId = sessionStorage.getItem('tr');
+    const url = `amazonpay://upi/pay?pa=avisenterprises695278.rzp@axisbank&pn=AVISENTERPRISES&am=1.00`;
     window.location.href = url;
   };
 
@@ -74,45 +76,61 @@ const PaymentDetails = () => {
         }}
       >
         <div>
-          {' '}
-          {/* <a
-          href={`intent://play/?pa=avisenterprises695278.rzp@axisbank&pn=AVISENTERPRISES&mc=7372&tr=${sessionStorage.getItem(
-            'tr'
-          )}&am=1.00#Intent;scheme=upi;package=in.amazon.mShop.android.shopping;end`}
-          class="button1"
-        >
-          Amazon Pay UPI
-        </a> */}
-          <button
-            class="button1"
-            onClick={redirectToUPI}
-            style={{
-              background: '#FDDB4D',
-              borderRadius: '30px',
-              border: 'none',
-              fontSize: '20px',
-              width: '150px',
-              padding: '.3rem 1rem',
-            }}
-          >
-            UPI
-          </button>
-        </div>
-        <div>
-          <button
-            class="button1"
-            onClick={redirectToWallet}
-            style={{
-              background: '#FDDB4D',
-              borderRadius: '30px',
-              border: 'none',
-              fontSize: '20px',
-              width: '150px',
-              padding: '.3rem 1rem',
-            }}
-          >
-            Wallet
-          </button>
+          {sessionStorage.getItem('deviceType') == 'iPhone' ? (
+            <>
+              <div>
+                <button
+                  class="button1"
+                  onClick={redirectToUPIAPPLE}
+                  style={{
+                    background: '#FDDB4D',
+                    borderRadius: '30px',
+                    border: 'none',
+                    fontSize: '20px',
+                    width: '150px',
+                    padding: '.3rem 1rem',
+                  }}
+                >
+                  AMAZON PAY
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              <div>
+                <button
+                  class="button1"
+                  onClick={redirectToUPI}
+                  style={{
+                    background: '#FDDB4D',
+                    borderRadius: '30px',
+                    border: 'none',
+                    fontSize: '20px',
+                    width: '150px',
+                    padding: '.3rem 1rem',
+                  }}
+                >
+                  UPI
+                </button>
+              </div>
+              <div>
+                <button
+                  class="button1"
+                  onClick={redirectToWallet}
+                  style={{
+                    background: '#FDDB4D',
+                    borderRadius: '30px',
+                    border: 'none',
+                    fontSize: '20px',
+                    width: '150px',
+                    padding: '.3rem 1rem',
+                  }}
+                >
+                  Wallet
+                </button>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </>

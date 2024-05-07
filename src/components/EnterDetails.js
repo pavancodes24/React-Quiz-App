@@ -39,13 +39,15 @@ const EnterDetails = () => {
     const userAgent = navigator.userAgent;
     if (/Android/i.test(userAgent)) {
       setDevice('Android');
+      sessionStorage.setItem('deviceType', 'Android');
     } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
       setDevice('iPhone');
+      sessionStorage.setItem('deviceType', 'iPhone');
     } else {
       setDevice('Unknown or not Mobile');
+      sessionStorage.setItem('deviceType', 'Unknown');
     }
     setLoaderNav(false);
-    console.log(device, 'found');
   };
 
   async function insertData(data) {
