@@ -11,6 +11,8 @@ const supabase = createClient(
 
 const EnterDetails = () => {
   const [detail, setDetail] = React.useState({});
+  const [device, setDevice] = React.useState('');
+  const [loaderNav, setLoaderNav] = React.useState(true);
   const [createOrderData, setCreateOrderData] = React.useState({});
   const [orderapi, setOrderApi] = React.useState({});
   const navigate = useNavigate('');
@@ -32,6 +34,19 @@ const EnterDetails = () => {
     navigate('/payment');
     console.log(data);
   }
+
+  const getDeviceData = () => {
+    const userAgent = navigator.userAgent;
+    if (/Android/i.test(userAgent)) {
+      setDevice('Android');
+    } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
+      setDevice('iPhone');
+    } else {
+      setDevice('Unknown or not Mobile');
+    }
+    setLoaderNav(false);
+    console.log(device, 'found');
+  };
 
   async function insertData(data) {
     let { data: users, errorCheck } = await supabase
@@ -57,8 +72,15 @@ const EnterDetails = () => {
     // console.log(users, 'data');
   }
 
-  return (
+  React.useState(() => {
+    getDeviceData();
+  }, []);
+
+  return loaderNav ? (
+    <>...loading</>
+  ) : (
     <div>
+      <div>Device:{device}</div>
       <section
         className=" text-white"
         // style={{ display: `${showQuiz ? 'none' : 'block'}` }}
