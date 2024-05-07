@@ -38,7 +38,7 @@ const PaymentDetails = () => {
   };
   const redirectToUPIAPPLE = () => {
     const transactionId = sessionStorage.getItem('tr');
-    const url = `amazonpay://upi/pay?pa=avisenterprises695278.rzp@axisbank&pn=AVISENTERPRISES&am=1.00`;
+    const url = `amazonpay://upi/pay?pa=avisenterprises695278.rzp@axisbank&pn=AVISENTERPRISES&am=1.00&tr=${transactionId}`;
     window.location.href = url;
   };
 
