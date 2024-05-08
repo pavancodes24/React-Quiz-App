@@ -117,7 +117,7 @@ const Quiz = () => {
                   onClick={() => {
                     nextQuestion();
                     setChange(!change);
-                    setSeconds(9);
+                    setSeconds(29);
                   }}
                   disabled={!selectedAnswer}
                 >
