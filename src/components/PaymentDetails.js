@@ -21,21 +21,21 @@ const PaymentDetails = () => {
         if (dataOne) {
           const { data } = await axios.post(apiLink, { orderId: dataOne });
           console.log(data.data.payment, 'data');
-          sessionStorage.setItem('tr', data?.data?.sdk_params?.tr ?? '');
+          sessionStorage.setItem('tr', data?.data?.payment?.sdk_params?.tr ?? '');
           sessionStorage.setItem(
             'merchant_name',
             data?.data?.payment?.sdk_params?.merchant_name ?? ''
           );
           sessionStorage.setItem(
             'merchant_vpa',
-            data?.data?.sdk_params?.merchant_vpa ?? ''
+            data?.data?.payment?.sdk_params?.merchant_vpa ?? ''
           );
           sessionStorage.setItem(
             'amount',
-            data?.data?.sdk_params?.amount ?? ''
+            data?.data?.payment?.sdk_params?.amount ?? ''
           );
 
-          sessionStorage.setItem('mcc', data?.data?.sdk_params?.mcc ?? '');
+          sessionStorage.setItem('mcc', data?.data?.payment?.sdk_params?.mcc ?? '');
 
           setLoading(false);
         }
