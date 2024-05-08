@@ -9,13 +9,14 @@ const supabase = createClient(
 );
 
 const Start = () => {
-  const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = React.useState(false);
   const navigate = useNavigate('');
   if (!sessionStorage.getItem('mobile') && !localStorage.getItem('mobile')) {
     navigate('/user-details');
   }
   const { startQuiz, showStart } = useContext(DataContext);
   const getOrderStatusApi = async () => {
+    setLoading(true);
     const base_url = `https://quizbackend-48178f0f17c2.herokuapp.com`;
     const apiLink = `${base_url}/api/v1/order/getOrderStatus`;
     const orderid = localStorage.getItem('orderId');
