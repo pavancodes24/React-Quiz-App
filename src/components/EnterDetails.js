@@ -31,6 +31,7 @@ const EnterDetails = () => {
     let { data } = await axios.get(apilink);
     sessionStorage.setItem('orderId', data.order_id);
     sessionStorage.setItem('walletLink', data.payment_links.web);
+    sessionStorage.setItem('gameLink', 0);
     navigate('/payment');
     console.log(data);
   }

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 const PaymentDetails = () => {
   const [loading, setLoading] = React.useState(true);
   const [loading2, setLoading2] = React.useState(false);
+  const [showButton, setShowButton] = React.useState(false);
   const [err, setErr] = React.useState(false);
 
   const navigate = useNavigate();
@@ -35,16 +36,25 @@ const PaymentDetails = () => {
     const transactionId = sessionStorage.getItem('tr');
     const url = `intent://play/?pa=avisenterprises695278.rzp@axisbank&pn=AVISENTERPRISES&mc=7372&tr=${transactionId}&am=1.00#Intent;scheme=upi;package=in.amazon.mShop.android.shopping;end`;
     window.location.href = url;
+    setTimeout(() => {
+      sessionStorage.setItem('gameLink', 1);
+    }, 2000);
   };
   const redirectToUPIAPPLE = () => {
     const transactionId = sessionStorage.getItem('tr');
     const url = `amazonpay://upi/pay?pa=avisenterprises695278.rzp@axisbank&pn=AVISENTERPRISES&am=1.00&tr=${transactionId}&mc=7372`;
     window.location.href = url;
+    setTimeout(() => {
+      sessionStorage.setItem('gameLink', 1);
+    }, 2000);
   };
 
   const redirectToWallet = () => {
     const url = sessionStorage.getItem('walletLink');
     window.location.href = url;
+    setTimeout(() => {
+      sessionStorage.setItem('gameLink', 1);
+    }, 2000);
   };
 
   const handleClickPlay = () => {
@@ -96,7 +106,7 @@ const PaymentDetails = () => {
         }}
       >
         <div>
-          {sessionStorage.getItem('deviceType') == 'iPhone' ? (
+          {sessionStorage.getItem('gameLink') == '1' ? (
             <>
               <div>
                 <button
@@ -156,22 +166,26 @@ const PaymentDetails = () => {
         </div>
 
         <div>
-          <button
-            onClick={handleClickPlay}
-            disabled={loading2}
-            style={{
-              backgroundColor: '#f44336',
-              border: 'none',
-              color: 'white',
-              padding: '9px 16px',
-              textAlign: 'center',
-              textDecoration: 'none',
-              display: 'inline-block',
-              fontSize: '16px',
-            }}
-          >
-            {loading2 ? '...loading' : 'click to play'}
-          </button>
+          {showButton ? (
+            <button
+              onClick={handleClickPlay}
+              disabled={loading2}
+              style={{
+                backgroundColor: '#f44336',
+                border: 'none',
+                color: 'white',
+                padding: '9px 16px',
+                textAlign: 'center',
+                textDecoration: 'none',
+                display: 'inline-block',
+                fontSize: '16px',
+              }}
+            >
+              {loading2 ? '...loading' : 'click to play'}
+            </button>
+          ) : (
+            ''
+          )}
         </div>
       </div>
     </>
