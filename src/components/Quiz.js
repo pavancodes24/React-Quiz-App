@@ -76,7 +76,7 @@ const Quiz = () => {
             <div>
               <img src="/stopwatch.png" alt="" width={'30'} height={'30'} />
             </div>
-            {<div>00:0{seconds}</div>}
+            {<div>00:{seconds}</div>}
           </div>
         </div>
         <div className="row vh-100 align-items-center justify-content-center">

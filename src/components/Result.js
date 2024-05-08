@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import DataContext from '../context/dataContext';
 import { createClient } from '@supabase/supabase-js';
 import { useNavigate } from 'react-router-dom';
@@ -11,7 +11,26 @@ const supabase = createClient(
 const Result = () => {
   const { showResult, quizs, marks, startOver } = useContext(DataContext);
 
-  // console.log(marks, 'testingonit', quizs);
+  // hello
+
+  const [seconds, setSeconds] = useState(3);
+  const navigate = useNavigate();
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSeconds((prevSeconds) => {
+        if (prevSeconds == 0) {
+          navigate('/user-details');
+        }
+        return prevSeconds - 1;
+      });
+    }, 1000);
+
+    // Cleanup function to clear the interval when the component unmounts
+    return () => clearInterval(timer);
+  }, []); // Empty dependency array ensures the effect runs only once on mount
+
+  //
+  console.log(marks, 'testingonitquiz', quizs);
 
   async function updateMarks() {
     const { data2, error2 } = await supabase
@@ -38,16 +57,14 @@ const Result = () => {
           <div className="col-lg-6">
             <div
               className={`text-light text-center p-5 rounded ${
-                marks > (quizs.length * 3) / 2 ? 'bg-success' : 'bg-danger'
+                marks / 5 == 3 ? 'bg-success' : 'bg-danger'
               }`}
             >
               <h1 className="mb-2 fw-bold">
-                {marks > (quizs.length * 3) / 2
-                  ? 'Awesome Congratulations!'
-                  : 'Oops!'}
+                {marks / 5 == 3 ? 'Congratulations!' : 'Oops!'}
               </h1>
               <h3 className="mb-3 fw-bold">
-                Your score is {marks / 3} out of {quizs.length}
+                Your score is {marks / 5} / {quizs.length}
               </h3>
 
               {/* <button
@@ -61,6 +78,8 @@ const Result = () => {
               >
                 Start Over
               </button> */}
+
+              <h1>Countdown: {seconds} seconds</h1>
             </div>
           </div>
         </div>
