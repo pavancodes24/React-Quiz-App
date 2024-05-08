@@ -91,9 +91,9 @@ const EnterDetails = () => {
     // console.log(users, 'data');
   }
 
-  React.useEffect(() => {
-    window.location.reload();
-  }, []);
+  // React.useEffect(() => {
+  //   window.location.reload();
+  // }, []);
 
   React.useState(() => {
     getDeviceData();
