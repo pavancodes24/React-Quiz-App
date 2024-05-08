@@ -77,6 +77,7 @@ const EnterDetails = () => {
 
   React.useState(() => {
     getDeviceData();
+    localStorage.setItem('gameLink', 0);
   }, []);
 
   return loaderNav ? (
