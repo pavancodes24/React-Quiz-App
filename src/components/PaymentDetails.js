@@ -257,17 +257,24 @@ const PaymentDetails = () => {
             onClick={getOrderStatusApi}
             // disabled={loading2}
             style={{
-              backgroundColor: '#f44336',
+              // backgroundColor: '#f44336',
+              // border: 'none',
+              // color: 'white',
+              // padding: '9px 16px',
+              // textAlign: 'center',
+              // textDecoration: 'none',
+              // display: 'inline-block',
+              // fontSize: '16px',
               border: 'none',
-              color: 'white',
-              padding: '9px 16px',
-              textAlign: 'center',
-              textDecoration: 'none',
-              display: 'inline-block',
+              backgroundColor: 'inherit',
+              padding: '14px 28px',
               fontSize: '16px',
+              cursor: 'pointer',
+              display: 'inline-block',
+              color: 'dodgerblue',
             }}
           >
-            click to play
+            click here to Play Game after making payment
             {/* {loading2 ? '...loading' : 'click to play'} */}
           </button>
           {/* ) : (

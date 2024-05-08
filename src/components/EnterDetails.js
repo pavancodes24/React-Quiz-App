@@ -85,6 +85,7 @@ const EnterDetails = () => {
       localStorage.setItem('mobile', data.mobile);
     } else {
       alert('number already exists');
+      setMainLoader(false);
     }
 
     // console.log(users, 'data');
