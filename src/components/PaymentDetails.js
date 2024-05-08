@@ -28,6 +28,10 @@ const PaymentDetails = () => {
       })
       .eq('mobile', localStorage.getItem('mobile'))
       .select();
+
+    if (data.data.status == 'CHARGED') {
+      navigate('/');
+    }
   };
 
   if (!dataOne) navigate('/user-details');

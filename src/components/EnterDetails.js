@@ -33,6 +33,7 @@ const EnterDetails = () => {
     let { data } = await axios.get(apilink);
     console.log(data, 'initialdata');
     sessionStorage.setItem('orderId', data.order_id);
+    localStorage.setItem('orderId', data.order_id);
     const { data2, error2 } = await supabase
       .from('users')
       .update({
@@ -91,6 +92,7 @@ const EnterDetails = () => {
   React.useState(() => {
     getDeviceData();
     localStorage.setItem('gameLink', 0);
+    localStorage.removeItem('orderId');
     localStorage.getItem('mobile');
     sessionStorage.removeItem('tr');
     sessionStorage.removeItem('merchant_name');

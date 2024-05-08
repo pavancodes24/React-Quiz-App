@@ -39,7 +39,7 @@ export const DataProvider = ({ children }) => {
     fetch('quiz.json')
       .then((res) => res.json())
       .then((data) => {
-        let ot = getRandomElements(data, 5);
+        let ot = getRandomElements(data, 3);
         setQuizs(ot);
       });
   }, [change]);

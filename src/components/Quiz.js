@@ -15,7 +15,7 @@ const Quiz = () => {
   } = useContext(DataContext);
 
   // console.log(question, 'question');
-  const [seconds, setSeconds] = React.useState(9);
+  const [seconds, setSeconds] = React.useState(29);
   const [change, setChange] = React.useState(false);
 
   React.useEffect(() => {
@@ -24,12 +24,12 @@ const Quiz = () => {
     if (showQuiz) {
       const timer = setInterval(() => {
         setSeconds((prevSeconds) => {
-          if (quizs.indexOf(question) + 1 == 5) {
+          if (quizs.indexOf(question) + 1 == 3) {
             showTheResult();
             return;
           }
           if (prevSeconds == 0) {
-            if (quizs.indexOf(question) + 1 == 5) {
+            if (quizs.indexOf(question) + 1 == 3) {
               showTheResult();
               return;
             }
@@ -42,7 +42,7 @@ const Quiz = () => {
             // );
             else {
               nextQuestion();
-              return 9;
+              return 29;
             }
           }
           return prevSeconds - 1;

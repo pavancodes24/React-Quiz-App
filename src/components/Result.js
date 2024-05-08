@@ -38,17 +38,19 @@ const Result = () => {
           <div className="col-lg-6">
             <div
               className={`text-light text-center p-5 rounded ${
-                marks > (quizs.length * 5) / 2 ? 'bg-success' : 'bg-danger'
+                marks > (quizs.length * 3) / 2 ? 'bg-success' : 'bg-danger'
               }`}
             >
               <h1 className="mb-2 fw-bold">
-                {marks > (quizs.length * 5) / 2 ? 'Awesome!' : 'Oops!'}
+                {marks > (quizs.length * 3) / 2
+                  ? 'Awesome Congratulations!'
+                  : 'Oops!'}
               </h1>
               <h3 className="mb-3 fw-bold">
-                Your score is {marks / 5} out of {quizs.length}
+                Your score is {marks / 3} out of {quizs.length}
               </h3>
 
-              <button
+              {/* <button
                 onClick={() => {
                   sessionStorage.removeItem('mobile');
 
@@ -58,7 +60,7 @@ const Result = () => {
                 className="btn py-2 px-4 btn-light fw-bold d-inline"
               >
                 Start Over
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
