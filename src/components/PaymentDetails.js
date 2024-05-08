@@ -47,6 +47,19 @@ const PaymentDetails = () => {
         if (dataOne) {
           const { data } = await axios.post(apiLink, { orderId: dataOne });
           console.log(data.data.payment, 'data');
+          if (data.data.status == 'CHARGED') {
+            const { data2, error2 } = await supabase
+              .from('users')
+              .update({
+                status: data.data.status == 'CHARGED' ? true : false,
+              })
+              .eq('mobile', localStorage.getItem('mobile'))
+              .select();
+
+            if (data.data.status == 'CHARGED') {
+              navigate('/');
+            }
+          }
           sessionStorage.setItem(
             'tr',
             data?.data?.payment?.sdk_params?.tr ?? ''
