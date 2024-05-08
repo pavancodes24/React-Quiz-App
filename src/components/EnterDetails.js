@@ -12,7 +12,7 @@ const supabase = createClient(
 const EnterDetails = () => {
   const [detail, setDetail] = React.useState({});
   const [device, setDevice] = React.useState('');
-  const [loaderNav, setLoaderNav] = React.useState(true);
+  const [loaderNav, setLoaderNav] = React.useState(false);
   const [mainLoader, setMainLoader] = React.useState(false);
   const [createOrderData, setCreateOrderData] = React.useState({});
   const [orderapi, setOrderApi] = React.useState({});
@@ -50,6 +50,7 @@ const EnterDetails = () => {
   }
 
   const getDeviceData = () => {
+    setLoaderNav(true);
     const userAgent = navigator.userAgent;
     if (/Android/i.test(userAgent)) {
       setDevice('Android');
