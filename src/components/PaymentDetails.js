@@ -122,8 +122,7 @@ const PaymentDetails = () => {
         }}
       >
         <div>
-          {localStorage.getItem('gameLink') == '1' &&
-          localStorage.deviceType('deviceType') != 'Unknown' ? (
+          {localStorage.getItem('gameLink') == '1' ? (
             <>
               <div>
                 <button
