@@ -53,7 +53,7 @@ const Result = () => {
                 Your score is {marks / 5} / {quizs.length}
               </h3>
 
-              <button
+              {/* <button
                 onClick={() => {
                   sessionStorage.removeItem('mobile');
                   sessionStorage.removeItem('orderId');
@@ -64,7 +64,7 @@ const Result = () => {
                 className="btn py-2 px-4 btn-light fw-bold d-inline"
               >
                 Exit
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
