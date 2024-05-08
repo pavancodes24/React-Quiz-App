@@ -91,6 +91,12 @@ const EnterDetails = () => {
     // console.log(users, 'data');
   }
 
+  React.useEffect(() => {
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
+  }, []);
+
   React.useState(() => {
     getDeviceData();
     localStorage.setItem('gameLink', 0);
