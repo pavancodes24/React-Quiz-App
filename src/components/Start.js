@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Start = () => {
   const navigate = useNavigate('');
-  if (!sessionStorage.getItem('mobile')) {
+  if (!sessionStorage.getItem('mobile') && !localStorage.getItem('mobile')) {
     navigate('/user-details');
   }
   const { startQuiz, showStart } = useContext(DataContext);

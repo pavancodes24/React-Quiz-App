@@ -1,6 +1,11 @@
 import axios from 'axios';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { createClient } from '@supabase/supabase-js';
+const supabase = createClient(
+  'https://hovpyzfjuyoqjlakwxjd.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhvdnB5emZqdXlvcWpsYWt3eGpkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDY1NDQxNzAsImV4cCI6MjAyMjEyMDE3MH0.6OmSG6kd5UQFDayTSDADe7CeMN__Wc5Hbk4jWYQsg4c'
+);
 const PaymentDetails = () => {
   const [loading, setLoading] = React.useState(true);
   const [loading2, setLoading2] = React.useState(false);
@@ -9,9 +14,26 @@ const PaymentDetails = () => {
 
   const navigate = useNavigate();
   let dataOne = sessionStorage.getItem('orderId');
+  const getOrderStatusApi = async () => {
+    const base_url = `https://quizbackend-48178f0f17c2.herokuapp.com`;
+    const apiLink = `${base_url}/api/v1/order/getOrderStatus`;
+    const orderid = sessionStorage.getItem('orderId');
+
+    let { data } = await axios.post(apiLink, { orderid: orderid });
+    console.log(data.data.status, 'testingdatadata');
+    const { data2, error2 } = await supabase
+      .from('users')
+      .update({
+        status: data.data.status == 'CHARGED' ? true : false,
+      })
+      .eq('mobile', localStorage.getItem('mobile'))
+      .select();
+  };
 
   if (!dataOne) navigate('/user-details');
   React.useEffect(() => {
+    // updatingids();
+    getOrderStatusApi();
     setLoading(true);
     async function datagetParam() {
       try {

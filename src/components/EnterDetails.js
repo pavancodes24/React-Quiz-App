@@ -13,6 +13,7 @@ const EnterDetails = () => {
   const [detail, setDetail] = React.useState({});
   const [device, setDevice] = React.useState('');
   const [loaderNav, setLoaderNav] = React.useState(true);
+  const [mainLoader, setMainLoader] = React.useState(false);
   const [createOrderData, setCreateOrderData] = React.useState({});
   const [orderapi, setOrderApi] = React.useState({});
   const navigate = useNavigate('');
@@ -21,6 +22,7 @@ const EnterDetails = () => {
     setDetail((prev) => ({ ...prev, [name]: value }));
   };
   const handleSubmit = (e) => {
+    setMainLoader(true);
     e.preventDefault();
     insertData(detail);
   };
@@ -29,9 +31,19 @@ const EnterDetails = () => {
   async function callOrderData() {
     let apilink = `${base_url}/api/v1/order/getorders`;
     let { data } = await axios.get(apilink);
+    console.log(data, 'initialdata');
     sessionStorage.setItem('orderId', data.order_id);
+    const { data2, error2 } = await supabase
+      .from('users')
+      .update({
+        order_id: data.order_id,
+        status: false,
+      })
+      .eq('mobile', sessionStorage.getItem('mobile'))
+      .select();
     sessionStorage.setItem('walletLink', data.payment_links.web);
     localStorage.setItem('gameLink', 0);
+    setMainLoader(false);
     navigate('/payment');
     console.log(data);
   }
@@ -68,6 +80,7 @@ const EnterDetails = () => {
       // console.log(output);
       callOrderData();
       sessionStorage.setItem('mobile', data.mobile);
+      localStorage.setItem('mobile', data.mobile);
     } else {
       alert('number already exists');
     }
@@ -78,6 +91,7 @@ const EnterDetails = () => {
   React.useState(() => {
     getDeviceData();
     localStorage.setItem('gameLink', 0);
+    localStorage.getItem('mobile');
     sessionStorage.removeItem('tr');
     sessionStorage.removeItem('merchant_name');
     sessionStorage.removeItem('merchant_vpa');
@@ -149,8 +163,12 @@ const EnterDetails = () => {
                       required
                     />
                   </div>
-                  <button type="submit" className="btn btn-primary">
-                    Submit
+                  <button
+                    type="submit"
+                    className="btn btn-primary"
+                    disabled={mainLoader}
+                  >
+                    {mainLoader ? '...loading' : 'Submit'}
                   </button>
                 </form>
               </div>
