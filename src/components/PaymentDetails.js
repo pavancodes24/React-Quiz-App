@@ -21,7 +21,10 @@ const PaymentDetails = () => {
         if (dataOne) {
           const { data } = await axios.post(apiLink, { orderId: dataOne });
           console.log(data.data.payment, 'data');
-          sessionStorage.setItem('tr', data?.data?.payment?.sdk_params?.tr ?? '');
+          sessionStorage.setItem(
+            'tr',
+            data?.data?.payment?.sdk_params?.tr ?? ''
+          );
           sessionStorage.setItem(
             'merchant_name',
             data?.data?.payment?.sdk_params?.merchant_name ?? ''
@@ -35,7 +38,10 @@ const PaymentDetails = () => {
             data?.data?.payment?.sdk_params?.amount ?? ''
           );
 
-          sessionStorage.setItem('mcc', data?.data?.payment?.sdk_params?.mcc ?? '');
+          sessionStorage.setItem(
+            'mcc',
+            data?.data?.payment?.sdk_params?.mcc ?? ''
+          );
 
           setLoading(false);
         }
@@ -57,6 +63,7 @@ const PaymentDetails = () => {
     const am = sessionStorage.getItem('amount');
 
     const url = `intent://play/?pa=${pa}&pn=${pn}&mc=${mc}&tr=${transactionId}&am=${am}#Intent;scheme=upi;package=in.amazon.mShop.android.shopping;end`;
+    console.log(url, 'urldata');
     window.location.href = url;
   };
   const redirectToUPIAPPLE = () => {
