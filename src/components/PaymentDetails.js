@@ -251,26 +251,27 @@ const PaymentDetails = () => {
         </div>
 
         <div>
-          {showButton ? (
-            <button
-              onClick={handleClickPlay}
-              disabled={loading2}
-              style={{
-                backgroundColor: '#f44336',
-                border: 'none',
-                color: 'white',
-                padding: '9px 16px',
-                textAlign: 'center',
-                textDecoration: 'none',
-                display: 'inline-block',
-                fontSize: '16px',
-              }}
-            >
-              {loading2 ? '...loading' : 'click to play'}
-            </button>
-          ) : (
+          {/* {showButton ? ( */}
+          <button
+            onClick={getOrderStatusApi}
+            // disabled={loading2}
+            style={{
+              backgroundColor: '#f44336',
+              border: 'none',
+              color: 'white',
+              padding: '9px 16px',
+              textAlign: 'center',
+              textDecoration: 'none',
+              display: 'inline-block',
+              fontSize: '16px',
+            }}
+          >
+            click to play
+            {/* {loading2 ? '...loading' : 'click to play'} */}
+          </button>
+          {/* ) : (
             ''
-          )}
+          )} */}
         </div>
       </div>
     </>
