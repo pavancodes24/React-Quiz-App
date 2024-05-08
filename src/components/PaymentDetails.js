@@ -34,6 +34,7 @@ const PaymentDetails = () => {
       navigate('/');
     } else {
       setLoading3(false);
+      alert('Please make the payment to proceed');
     }
   };
 
