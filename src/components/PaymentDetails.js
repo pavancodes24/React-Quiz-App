@@ -39,7 +39,9 @@ const PaymentDetails = () => {
 
   if (!dataOne) navigate('/user-details');
   React.useEffect(() => {
-    getOrderStatusApi();
+    if (localStorage.getItem('gameLink') != 0) {
+      getOrderStatusApi();
+    }
   }, []);
   React.useEffect(() => {
     // updatingids();
