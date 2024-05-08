@@ -252,9 +252,10 @@ const PaymentDetails = () => {
               cursor: 'pointer',
               display: 'inline-block',
               color: 'dodgerblue',
+              textDecoration: 'underline' 
             }}
           >
-            click here to Play Game after making payment
+            Click here to Play Game after making payment
             {/* {loading2 ? '...loading' : 'click to play'} */}
           </button>
           {/* ) : (
