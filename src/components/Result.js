@@ -13,21 +13,7 @@ const Result = () => {
 
   // hello
 
-  const [seconds, setSeconds] = useState(3);
   const navigate = useNavigate();
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setSeconds((prevSeconds) => {
-        if (prevSeconds == 0) {
-          navigate('/user-details');
-        }
-        return prevSeconds - 1;
-      });
-    }, 1000);
-
-    // Cleanup function to clear the interval when the component unmounts
-    return () => clearInterval(timer);
-  }, []); // Empty dependency array ensures the effect runs only once on mount
 
   //
   console.log(marks, 'testingonitquiz', quizs);
@@ -67,19 +53,19 @@ const Result = () => {
                 Your score is {marks / 5} / {quizs.length}
               </h3>
 
-              {/* <button
+              <button
                 onClick={() => {
                   sessionStorage.removeItem('mobile');
+                  sessionStorage.removeItem('orderId');
+                  localStorage.removeItem('orderId');
 
-                  startOver();
+                  navigate('/user-details');
                   // window.location.reload();
                 }}
                 className="btn py-2 px-4 btn-light fw-bold d-inline"
               >
-                Start Over
-              </button> */}
-
-              <h1>Countdown: {seconds} seconds</h1>
+                Exit
+              </button>
             </div>
           </div>
         </div>
