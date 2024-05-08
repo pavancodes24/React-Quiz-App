@@ -59,8 +59,10 @@ const Result = () => {
                   sessionStorage.removeItem('orderId');
                   localStorage.removeItem('orderId');
 
-                  navigate('/user-details');
-                  // window.location.reload();
+                  window.location.reload();
+                  setTimeout(() => {
+                    navigate('/user-details');
+                  }, 1);
                 }}
                 className="btn py-2 px-4 btn-light fw-bold d-inline"
               >

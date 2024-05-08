@@ -143,26 +143,6 @@ const PaymentDetails = () => {
     window.location.href = url;
   };
 
-  const handleClickPlay = () => {
-    setLoading2(true);
-    const base_url = `https://quizbackend-48178f0f17c2.herokuapp.com`;
-    const apiLink = `${base_url}/api/v1/order/getOrderStatus`;
-    axios
-      .post(apiLink, { orderid: dataOne })
-      .then((res) => {
-        console.log(res.data.data.status, 'checkres');
-        if (res.data.data.status == 'CREATED') {
-          alert('please make the payment to play');
-        } else {
-          navigate('/');
-        }
-      })
-      .catch((err) => console.error(err))
-      .finally(() => {
-        setLoading2(false);
-      });
-  };
-
   return loading || loading3 ? (
     <>...loading</>
   ) : err ? (
