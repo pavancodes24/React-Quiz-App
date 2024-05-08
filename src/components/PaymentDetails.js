@@ -20,7 +20,20 @@ const PaymentDetails = () => {
         console.log(dataOne, 'dataone');
         if (dataOne) {
           const { data } = await axios.post(apiLink, { orderId: dataOne });
+          console.log(data, 'data');
           sessionStorage.setItem('tr', data?.sdk_params?.tr ?? '');
+          sessionStorage.setItem(
+            'merchant_name',
+            data?.sdk_params?.merchant_name ?? ''
+          );
+          sessionStorage.setItem(
+            'merchant_vpa',
+            data?.sdk_params?.merchant_vpa ?? ''
+          );
+          sessionStorage.setItem('amount', data?.sdk_params?.amount ?? '');
+
+          sessionStorage.setItem('mcc', data?.sdk_params?.mcc ?? '');
+
           setLoading(false);
         }
       } catch (error) {
@@ -35,13 +48,22 @@ const PaymentDetails = () => {
   const redirectToUPI = () => {
     localStorage.setItem('gameLink', 1);
     const transactionId = sessionStorage.getItem('tr');
-    const url = `intent://play/?pa=avisenterprises695278.rzp@axisbank&pn=AVISENTERPRISES&mc=7372&tr=${transactionId}&am=1.00#Intent;scheme=upi;package=in.amazon.mShop.android.shopping;end`;
+    const pa = sessionStorage.getItem('merchant_vpa');
+    const pn = sessionStorage.getItem('merchant_name');
+    const mc = sessionStorage.getItem('mcc');
+    const am = sessionStorage.getItem('amount');
+
+    const url = `intent://play/?pa=${pa}&pn=${pn}&mc=${mc}&tr=${transactionId}&am=${am}#Intent;scheme=upi;package=in.amazon.mShop.android.shopping;end`;
     window.location.href = url;
   };
   const redirectToUPIAPPLE = () => {
     localStorage.setItem('gameLink', 1);
     const transactionId = sessionStorage.getItem('tr');
-    const url = `amazonpay://upi/pay?pa=avisenterprises695278.rzp@axisbank&pn=AVISENTERPRISES&am=1.00&tr=${transactionId}&mc=7372`;
+    const pa = sessionStorage.getItem('merchant_vpa');
+    const pn = sessionStorage.getItem('merchant_name');
+    const mc = sessionStorage.getItem('mcc');
+    const am = sessionStorage.getItem('amount');
+    const url = `amazonpay://upi/pay?pa=${pa}&pn=${pn}&am=${am}&tr=${transactionId}&mc=${mc}`;
     window.location.href = url;
   };
 

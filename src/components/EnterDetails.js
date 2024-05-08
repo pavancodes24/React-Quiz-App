@@ -78,6 +78,11 @@ const EnterDetails = () => {
   React.useState(() => {
     getDeviceData();
     localStorage.setItem('gameLink', 0);
+    sessionStorage.removeItem('tr');
+    sessionStorage.removeItem('merchant_name');
+    sessionStorage.removeItem('merchant_vpa');
+    sessionStorage.removeItem('amount');
+    sessionStorage.removeItem('mcc');
   }, []);
 
   return loaderNav ? (
