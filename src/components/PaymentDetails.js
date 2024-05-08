@@ -123,7 +123,7 @@ const PaymentDetails = () => {
       >
         <div>
           {localStorage.getItem('gameLink') == '1' &&
-          sessionStorage.deviceType('deviceType') != 'Unknown' ? (
+          localStorage.deviceType('deviceType') != 'Unknown' ? (
             <>
               <div>
                 <button

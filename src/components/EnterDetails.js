@@ -40,13 +40,13 @@ const EnterDetails = () => {
     const userAgent = navigator.userAgent;
     if (/Android/i.test(userAgent)) {
       setDevice('Android');
-      sessionStorage.setItem('deviceType', 'Android');
+      localStorage.setItem('deviceType', 'Android');
     } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
       setDevice('iPhone');
-      sessionStorage.setItem('deviceType', 'iPhone');
+      localStorage.setItem('deviceType', 'iPhone');
     } else {
       setDevice('Unknown or not Mobile');
-      sessionStorage.setItem('deviceType', 'Unknown');
+      localStorage.setItem('deviceType', 'Unknown');
     }
     setLoaderNav(false);
   };
