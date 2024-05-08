@@ -33,28 +33,22 @@ const PaymentDetails = () => {
   // document.body.style.backgroundColor = '#FDDB4D';
 
   const redirectToUPI = () => {
+    localStorage.setItem('gameLink', 1);
     const transactionId = sessionStorage.getItem('tr');
     const url = `intent://play/?pa=avisenterprises695278.rzp@axisbank&pn=AVISENTERPRISES&mc=7372&tr=${transactionId}&am=1.00#Intent;scheme=upi;package=in.amazon.mShop.android.shopping;end`;
     window.location.href = url;
-    setTimeout(() => {
-      sessionStorage.setItem('gameLink', 1);
-    }, 2000);
   };
   const redirectToUPIAPPLE = () => {
+    localStorage.setItem('gameLink', 1);
     const transactionId = sessionStorage.getItem('tr');
     const url = `amazonpay://upi/pay?pa=avisenterprises695278.rzp@axisbank&pn=AVISENTERPRISES&am=1.00&tr=${transactionId}&mc=7372`;
     window.location.href = url;
-    setTimeout(() => {
-      sessionStorage.setItem('gameLink', 1);
-    }, 2000);
   };
 
   const redirectToWallet = () => {
+    localStorage.setItem('gameLink', 1);
     const url = sessionStorage.getItem('walletLink');
     window.location.href = url;
-    setTimeout(() => {
-      sessionStorage.setItem('gameLink', 1);
-    }, 2000);
   };
 
   const handleClickPlay = () => {
@@ -106,7 +100,8 @@ const PaymentDetails = () => {
         }}
       >
         <div>
-          {sessionStorage.getItem('gameLink') == '1' ? (
+          {localStorage.getItem('gameLink') == '1' &&
+          sessionStorage.deviceType('deviceType') != 'Unknown' ? (
             <>
               <div>
                 <button
