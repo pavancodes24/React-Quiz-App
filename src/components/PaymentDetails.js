@@ -7,8 +7,9 @@ const supabase = createClient(
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhvdnB5emZqdXlvcWpsYWt3eGpkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDY1NDQxNzAsImV4cCI6MjAyMjEyMDE3MH0.6OmSG6kd5UQFDayTSDADe7CeMN__Wc5Hbk4jWYQsg4c'
 );
 const PaymentDetails = () => {
-  const [loading, setLoading] = React.useState(true);
+  const [loading, setLoading] = React.useState(false);
   const [loading2, setLoading2] = React.useState(false);
+  const [loading3, setLoading3] = React.useState(true);
   const [showButton, setShowButton] = React.useState(false);
   const [err, setErr] = React.useState(false);
 
@@ -31,93 +32,109 @@ const PaymentDetails = () => {
 
     if (data.data.status == 'CHARGED') {
       navigate('/');
+    } else {
+      setLoading3(false);
     }
   };
 
   if (!dataOne) navigate('/user-details');
   React.useEffect(() => {
-    // updatingids();
     getOrderStatusApi();
-    setLoading(true);
-    async function datagetParam() {
-      try {
-        const base_url = `https://quizbackend-48178f0f17c2.herokuapp.com`;
-        const apiLink = `${base_url}/api/v1/order/getSdkParams`;
-        console.log(dataOne, 'dataone');
-        if (dataOne) {
-          const { data } = await axios.post(apiLink, { orderId: dataOne });
-          console.log(data.data.payment, 'data');
-          if (data.data.status == 'CHARGED') {
-            const { data2, error2 } = await supabase
-              .from('users')
-              .update({
-                status: data.data.status == 'CHARGED' ? true : false,
-              })
-              .eq('mobile', localStorage.getItem('mobile'))
-              .select();
-
+  }, []);
+  React.useEffect(() => {
+    // updatingids();
+    if (localStorage.getItem('gameLink') == 0) {
+      setLoading(true);
+      async function datagetParam() {
+        try {
+          const base_url = `https://quizbackend-48178f0f17c2.herokuapp.com`;
+          const apiLink = `${base_url}/api/v1/order/getSdkParams`;
+          console.log(dataOne, 'dataone');
+          if (dataOne) {
+            const { data } = await axios.post(apiLink, { orderId: dataOne });
+            console.log(data.data.payment, 'data');
             if (data.data.status == 'CHARGED') {
-              navigate('/');
+              const { data2, error2 } = await supabase
+                .from('users')
+                .update({
+                  status: data.data.status == 'CHARGED' ? true : false,
+                })
+                .eq('mobile', localStorage.getItem('mobile'))
+                .select();
+
+              if (data.data.status == 'CHARGED') {
+                navigate('/');
+              }
             }
+            sessionStorage.setItem(
+              'tr',
+              data?.data?.payment?.sdk_params?.tr ?? ''
+            );
+            sessionStorage.setItem(
+              'merchant_name',
+              data?.data?.payment?.sdk_params?.merchant_name ?? ''
+            );
+            sessionStorage.setItem(
+              'merchant_vpa',
+              data?.data?.payment?.sdk_params?.merchant_vpa ?? ''
+            );
+            sessionStorage.setItem(
+              'amount',
+              data?.data?.payment?.sdk_params?.amount ?? ''
+            );
+
+            sessionStorage.setItem(
+              'mcc',
+              data?.data?.payment?.sdk_params?.mcc ?? ''
+            );
+
+            setLoading(false);
           }
-          sessionStorage.setItem(
-            'tr',
-            data?.data?.payment?.sdk_params?.tr ?? ''
-          );
-          sessionStorage.setItem(
-            'merchant_name',
-            data?.data?.payment?.sdk_params?.merchant_name ?? ''
-          );
-          sessionStorage.setItem(
-            'merchant_vpa',
-            data?.data?.payment?.sdk_params?.merchant_vpa ?? ''
-          );
-          sessionStorage.setItem(
-            'amount',
-            data?.data?.payment?.sdk_params?.amount ?? ''
-          );
-
-          sessionStorage.setItem(
-            'mcc',
-            data?.data?.payment?.sdk_params?.mcc ?? ''
-          );
-
+        } catch (error) {
           setLoading(false);
+          setErr(true);
+        } finally {
+          localStorage.getItem('gameLink', 1);
         }
-      } catch (error) {
-        setLoading(false);
-        setErr(true);
       }
+      datagetParam();
     }
-    datagetParam();
   }, []);
   // document.body.style.backgroundColor = '#FDDB4D';
 
   const redirectToUPI = () => {
-    localStorage.setItem('gameLink', 1);
+    // localStorage.setItem('gameLink', 1);
     const transactionId = sessionStorage.getItem('tr');
     const pa = sessionStorage.getItem('merchant_vpa');
     const pn = sessionStorage.getItem('merchant_name');
     const mc = sessionStorage.getItem('mcc');
     const am = sessionStorage.getItem('amount');
+
+    if (!pa) {
+      navigate('/user-details');
+    }
 
     const url = `intent://play/?pa=${pa}&pn=${pn}&mc=${mc}&tr=${transactionId}&am=${am}#Intent;scheme=upi;package=in.amazon.mShop.android.shopping;end`;
     console.log(url, 'urldata');
     window.location.href = url;
   };
   const redirectToUPIAPPLE = () => {
-    localStorage.setItem('gameLink', 1);
+    // localStorage.setItem('gameLink', 1);
     const transactionId = sessionStorage.getItem('tr');
     const pa = sessionStorage.getItem('merchant_vpa');
     const pn = sessionStorage.getItem('merchant_name');
     const mc = sessionStorage.getItem('mcc');
     const am = sessionStorage.getItem('amount');
+
+    if (!pa) {
+      navigate('/user-details');
+    }
     const url = `amazonpay://upi/pay?pa=${pa}&pn=${pn}&am=${am}&tr=${transactionId}&mc=${mc}`;
     window.location.href = url;
   };
 
   const redirectToWallet = () => {
-    localStorage.setItem('gameLink', 1);
+    // localStorage.setItem('gameLink', 1);
     const url = sessionStorage.getItem('walletLink');
     window.location.href = url;
   };
@@ -142,7 +159,7 @@ const PaymentDetails = () => {
       });
   };
 
-  return loading ? (
+  return loading || loading3 ? (
     <>...loading</>
   ) : err ? (
     <>something went wrong</>
