@@ -97,6 +97,7 @@ const PaymentDetails = () => {
           setErr(true);
         } finally {
           localStorage.getItem('gameLink', 1);
+          setLoading3(false);
         }
       }
       datagetParam();
