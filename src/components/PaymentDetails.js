@@ -1,9 +1,9 @@
 import axios from 'axios';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-
 const PaymentDetails = () => {
   const [loading, setLoading] = React.useState(true);
+  const [loading2, setLoading2] = React.useState(false);
   const [err, setErr] = React.useState(false);
 
   const navigate = useNavigate();
@@ -38,13 +38,33 @@ const PaymentDetails = () => {
   };
   const redirectToUPIAPPLE = () => {
     const transactionId = sessionStorage.getItem('tr');
-    const url = `amazonpay://upi/pay?pa=avisenterprises695278.rzp@axisbank&pn=AVISENTERPRISES&am=1.00&tr=${transactionId}`;
+    const url = `amazonpay://upi/pay?pa=avisenterprises695278.rzp@axisbank&pn=AVISENTERPRISES&am=1.00&tr=${transactionId}&mc=7372`;
     window.location.href = url;
   };
 
   const redirectToWallet = () => {
     const url = sessionStorage.getItem('walletLink');
     window.location.href = url;
+  };
+
+  const handleClickPlay = () => {
+    setLoading2(true);
+    const base_url = `https://quizbackend-48178f0f17c2.herokuapp.com`;
+    const apiLink = `${base_url}/api/v1/order/getOrderStatus`;
+    axios
+      .post(apiLink, { orderid: dataOne })
+      .then((res) => {
+        console.log(res.data.data.status, 'checkres');
+        if (res.data.data.status == 'CREATED') {
+          alert('please make the payment to play');
+        } else {
+          navigate('/');
+        }
+      })
+      .catch((err) => console.error(err))
+      .finally(() => {
+        setLoading2(false);
+      });
   };
 
   return loading ? (
@@ -113,6 +133,8 @@ const PaymentDetails = () => {
                   UPI
                 </button>
               </div>
+
+              <br></br>
               <div>
                 <button
                   class="button1"
@@ -131,6 +153,25 @@ const PaymentDetails = () => {
               </div>
             </>
           )}
+        </div>
+
+        <div>
+          <button
+            onClick={handleClickPlay}
+            disabled={loading2}
+            style={{
+              backgroundColor: '#f44336',
+              border: 'none',
+              color: 'white',
+              padding: '9px 16px',
+              textAlign: 'center',
+              textDecoration: 'none',
+              display: 'inline-block',
+              fontSize: '16px',
+            }}
+          >
+            {loading2 ? '...loading' : 'click to play'}
+          </button>
         </div>
       </div>
     </>
