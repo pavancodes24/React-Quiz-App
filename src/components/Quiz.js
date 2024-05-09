@@ -52,7 +52,7 @@ const Quiz = () => {
       // Cleanup function to clear the interval when the component unmounts
       return () => clearInterval(timer);
     }
-  }, [showQuiz, questionIndex]);
+  }, []);
 
   // console.log(seconds, 'timer');
   return (
