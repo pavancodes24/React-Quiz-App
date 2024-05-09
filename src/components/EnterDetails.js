@@ -88,6 +88,7 @@ const EnterDetails = () => {
       if (!users[0].status) {
         sessionStorage.setItem('orderId', users[0].order_id);
         localStorage.setItem('orderId', users[0].order_id);
+        localStorage.setItem('gameLink', 0);
         navigate('/payment');
       } else {
         alert('number already exists');
