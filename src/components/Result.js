@@ -18,6 +18,9 @@ const Result = () => {
   //
   console.log(marks, 'testingonitquiz', quizs);
 
+  
+
+
   async function updateMarks() {
     const { data2, error2 } = await supabase
       .from('users')
