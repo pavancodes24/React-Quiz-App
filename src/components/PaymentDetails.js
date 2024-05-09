@@ -15,6 +15,7 @@ const PaymentDetails = () => {
 
   const navigate = useNavigate();
   let dataOne = sessionStorage.getItem('orderId');
+  if (!dataOne) navigate('/user-details');
   const getOrderStatusApi = async () => {
     const base_url = `https://quizbackend-48178f0f17c2.herokuapp.com`;
     const apiLink = `${base_url}/api/v1/order/getOrderStatus`;
