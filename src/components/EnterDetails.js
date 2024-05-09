@@ -22,8 +22,8 @@ const EnterDetails = () => {
     setDetail((prev) => ({ ...prev, [name]: value }));
   };
   const handleSubmit = (e) => {
-    setMainLoader(true);
     e.preventDefault();
+    setMainLoader(true);
     insertData(detail);
   };
 
@@ -84,8 +84,15 @@ const EnterDetails = () => {
       sessionStorage.setItem('mobile', data.mobile);
       localStorage.setItem('mobile', data.mobile);
     } else {
-      alert('number already exists');
-      setMainLoader(false);
+      console.log(users[0], 'testing data check qc');
+      if (!users[0].status) {
+        sessionStorage.setItem('orderId', users[0].order_id);
+        localStorage.setItem('orderId', users[0].order_id);
+        navigate('/payment');
+      } else {
+        alert('number already exists');
+        setMainLoader(false);
+      }
     }
 
     // console.log(users, 'data');

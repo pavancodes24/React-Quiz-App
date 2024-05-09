@@ -11,7 +11,7 @@ const supabase = createClient(
 const Start = () => {
   const [loading, setLoading] = React.useState(false);
   const navigate = useNavigate('');
-  if (!sessionStorage.getItem('mobile') && !localStorage.getItem('mobile')) {
+  if (!sessionStorage.getItem('mobile')) {
     navigate('/user-details');
   }
   const { startQuiz, showStart } = useContext(DataContext);
