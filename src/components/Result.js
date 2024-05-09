@@ -53,18 +53,22 @@ const Result = () => {
                 Your score is {marks / 5} / {quizs.length}
               </h3>
 
-              {/* <button
+              <button
                 onClick={() => {
                   sessionStorage.removeItem('mobile');
+                  localStorage.removeItem('mobile');
                   sessionStorage.removeItem('orderId');
                   localStorage.removeItem('orderId');
-
-                  navigate('/user-details');
+                  sessionStorage.removeItem('walletLink');
+                  localStorage.removeItem('gameLink');
+                  setTimeout(() => {
+                    navigate('/user-details');
+                  }, 1000);
                 }}
                 className="btn py-2 px-4 btn-light fw-bold d-inline"
               >
                 Exit
-              </button> */}
+              </button>
             </div>
           </div>
         </div>
