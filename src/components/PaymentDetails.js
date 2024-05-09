@@ -14,7 +14,7 @@ const PaymentDetails = () => {
   const [err, setErr] = React.useState(false);
 
   const navigate = useNavigate();
-  let dataOne = sessionStorage.getItem('orderId');
+  let dataOne = localStorage.getItem('orderId');
   const getOrderStatusApi = async () => {
     const base_url = `https://quizbackend-48178f0f17c2.herokuapp.com`;
     const apiLink = `${base_url}/api/v1/order/getOrderStatus`;
@@ -252,7 +252,7 @@ const PaymentDetails = () => {
               cursor: 'pointer',
               display: 'inline-block',
               color: 'dodgerblue',
-              textDecoration: 'underline' 
+              textDecoration: 'underline',
             }}
           >
             Click here to Play Game after making payment
