@@ -22,6 +22,7 @@ const PaymentDetails = () => {
     const orderid = sessionStorage.getItem('orderId');
 
     let { data } = await axios.post(apiLink, { orderid: orderid });
+    console.log(data, 'datainitial');
     console.log(data.data.status, 'testingdatadata');
     const { data2, error2 } = await supabase
       .from('users')
@@ -56,6 +57,7 @@ const PaymentDetails = () => {
           console.log(dataOne, 'dataone');
           if (dataOne) {
             const { data } = await axios.post(apiLink, { orderId: dataOne });
+            console.log(data, 'datainitial');
             console.log(data.data.payment, 'data');
             if (data.data.status == 'CHARGED') {
               const { data2, error2 } = await supabase

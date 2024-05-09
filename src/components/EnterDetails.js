@@ -28,9 +28,15 @@ const EnterDetails = () => {
   };
 
   let base_url = `https://quizbackend-48178f0f17c2.herokuapp.com`;
-  async function callOrderData() {
+  async function callOrderData(orderdata = null) {
+    let body = {};
+    if (!orderdata) {
+      body = {
+        orderIdFront: orderdata,
+      };
+    }
     let apilink = `${base_url}/api/v1/order/getorders`;
-    let { data } = await axios.get(apilink);
+    let { data } = await axios.post(apilink, body);
     console.log(data, 'initialdata');
     sessionStorage.setItem('orderId', data.order_id);
     localStorage.setItem('orderId', data.order_id);
@@ -86,10 +92,13 @@ const EnterDetails = () => {
     } else {
       console.log(users[0], 'testing data check qc');
       if (!users[0].status) {
-        sessionStorage.setItem('orderId', users[0].order_id);
-        localStorage.setItem('orderId', users[0].order_id);
-        localStorage.setItem('gameLink', 0);
-        navigate('/payment');
+        sessionStorage.setItem('mobile', users[0].mobile);
+        localStorage.setItem('mobile', users[0].mobile);
+        callOrderData(users[0].order_id);
+        // sessionStorage.setItem('orderId', users[0].order_id);
+        // localStorage.setItem('orderId', users[0].order_id);
+        // localStorage.setItem('gameLink', 0);
+        // navigate('/payment');
       } else {
         alert('number already exists');
         setMainLoader(false);
