@@ -91,7 +91,7 @@ const EnterDetails = () => {
       localStorage.setItem('mobile', data.mobile);
     } else {
       console.log(users[0], 'testing data check qc');
-      if (!users[0].status) {
+      if (!users[0].status || users[0].score==0) {
         sessionStorage.setItem('mobile', users[0].mobile);
         localStorage.setItem('mobile', users[0].mobile);
         callOrderData(users[0].order_id);
