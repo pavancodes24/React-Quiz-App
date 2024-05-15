@@ -97,6 +97,9 @@ const EnterDetails = () => {
       .eq('mobile', data.mobile);
 
     if (users.length) {
+      sessionStorage.setItem('mobile', users[0].mobile);
+      localStorage.setItem('mobile', users[0].mobile);
+      localStorage.setItem('orderId', users[0].order_id);
       let ordrId = users[0].order_id;
       await getOrderStatusApi(ordrId);
     }
