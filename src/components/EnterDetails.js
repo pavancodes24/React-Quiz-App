@@ -69,11 +69,37 @@ const EnterDetails = () => {
     setLoaderNav(false);
   };
 
+  const getOrderStatusApi = async (orderId) => {
+    const base_url = `https://quizbackend-48178f0f17c2.herokuapp.com`;
+    const apiLink = `${base_url}/api/v1/order/getOrderStatus`;
+    const orderid = orderId;
+
+    let { data } = await axios.post(apiLink, { orderid: orderid });
+    const { data2, error2 } = await supabase
+      .from('users')
+      .update({
+        status: data.data.status == 'CHARGED' ? true : false,
+      })
+      .eq('mobile', localStorage.getItem('mobile'))
+      .select();
+
+    if (data.data.status != 'CHARGED') {
+      navigate('/payment');
+    } else {
+      navigate('/');
+    }
+  };
+
   async function insertData(data) {
     let { data: users, errorCheck } = await supabase
       .from('users')
       .select('*')
       .eq('mobile', data.mobile);
+
+    if (users.length) {
+      let ordrId = users[0].order_id;
+      await getOrderStatusApi(ordrId);
+    }
 
     if (users.length) {
       if (users[0]?.score == '0' && users[0]?.status == true) {
