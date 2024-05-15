@@ -267,7 +267,7 @@ const PaymentDetails = () => {
         </div>
       </div>
 
-      <div>Order ID : {JSON.stringify(dataOne)}</div>
+      {/* <div>Order ID : {JSON.stringify(dataOne)}</div> */}
     </>
   );
 };
