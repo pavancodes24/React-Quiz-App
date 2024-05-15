@@ -96,25 +96,25 @@ const EnterDetails = () => {
       .select('*')
       .eq('mobile', data.mobile);
 
-    if (users.length) {
-      sessionStorage.setItem('mobile', users[0].mobile);
-      localStorage.setItem('mobile', users[0].mobile);
-      localStorage.setItem('orderId', users[0].order_id);
-      let ordrId = users[0].order_id;
-      await getOrderStatusApi(ordrId);
-    }
+    // if (users.length) {
+    //   sessionStorage.setItem('mobile', users[0].mobile);
+    //   localStorage.setItem('mobile', users[0].mobile);
+    //   localStorage.setItem('orderId', users[0].order_id);
+    //   let ordrId = users[0].order_id;
+    //   await getOrderStatusApi(ordrId);
+    // }
 
-    if (users.length) {
-      if (users[0]?.score == '0' && users[0]?.status == true) {
-        console.log('checkinside', 'fintthem');
-        sessionStorage.setItem('mobile', users[0].mobile);
-        localStorage.setItem('mobile', users[0].mobile);
-        localStorage.setItem('orderId', users[0].order_id);
-        navigate('/');
-        setMainLoader(false);
-        return '';
-      }
-    }
+    // if (users.length) {
+    //   if (users[0]?.score == '0' && users[0]?.status == true) {
+    //     console.log('checkinside', 'fintthem');
+    //     sessionStorage.setItem('mobile', users[0].mobile);
+    //     localStorage.setItem('mobile', users[0].mobile);
+    //     localStorage.setItem('orderId', users[0].order_id);
+    //     navigate('/');
+    //     setMainLoader(false);
+    //     return '';
+    //   }
+    // }
 
     if (!users.length) {
       // Insert a new row
@@ -129,19 +129,19 @@ const EnterDetails = () => {
       sessionStorage.setItem('mobile', data.mobile);
       localStorage.setItem('mobile', data.mobile);
     } else {
-      console.log(users[0], 'testing data check qc');
-      if (!users[0].status) {
-        sessionStorage.setItem('mobile', users[0].mobile);
-        localStorage.setItem('mobile', users[0].mobile);
-        callOrderData(users[0].order_id);
-        // sessionStorage.setItem('orderId', users[0].order_id);
-        // localStorage.setItem('orderId', users[0].order_id);
-        // localStorage.setItem('gameLink', 0);
-        // navigate('/payment');
-      } else {
-        alert('number already exists');
-        setMainLoader(false);
-      }
+      // console.log(users[0], 'testing data check qc');
+      // if (!users[0].status) {
+      //   sessionStorage.setItem('mobile', users[0].mobile);
+      //   localStorage.setItem('mobile', users[0].mobile);
+      //   callOrderData(users[0].order_id);
+      //   // sessionStorage.setItem('orderId', users[0].order_id);
+      //   // localStorage.setItem('orderId', users[0].order_id);
+      //   // localStorage.setItem('gameLink', 0);
+      //   // navigate('/payment');
+      // } else {
+      alert('number already exists');
+      setMainLoader(false);
+      // }
     }
 
     // console.log(users, 'data');
