@@ -16,7 +16,7 @@ const EnterDetails = () => {
   const [mainLoader, setMainLoader] = React.useState(false);
   const [createOrderData, setCreateOrderData] = React.useState({});
   const [orderapi, setOrderApi] = React.useState({});
-  const navigate = useNavigate('');
+  const navigate = useNavigate();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setDetail((prev) => ({ ...prev, [name]: value }));
@@ -28,7 +28,7 @@ const EnterDetails = () => {
   };
 
   let base_url = `https://quizbackend-48178f0f17c2.herokuapp.com`;
-  async function callOrderData(orderdata = null) {
+  async function callOrderData(imp = false, orderdata = null) {
     let body = {};
     if (!orderdata) {
       body = {
@@ -37,7 +37,6 @@ const EnterDetails = () => {
     }
     let apilink = `${base_url}/api/v1/order/getorders`;
     let { data } = await axios.post(apilink, body);
-    console.log(data, 'initialdata');
     sessionStorage.setItem('orderId', data.order_id);
     localStorage.setItem('orderId', data.order_id);
     const { data2, error2 } = await supabase
@@ -52,7 +51,6 @@ const EnterDetails = () => {
     localStorage.setItem('gameLink', 0);
     setMainLoader(false);
     navigate('/payment');
-    console.log(data);
   }
 
   const getDeviceData = () => {
@@ -77,6 +75,18 @@ const EnterDetails = () => {
       .select('*')
       .eq('mobile', data.mobile);
 
+    if (users.length) {
+      if (users[0]?.score == '0' && users[0]?.status == true) {
+        console.log('checkinside', 'fintthem');
+        sessionStorage.setItem('mobile', users[0].mobile);
+        localStorage.setItem('mobile', users[0].mobile);
+        localStorage.setItem('orderId', users[0].order_id);
+        navigate('/');
+        setMainLoader(false);
+        return '';
+      }
+    }
+
     if (!users.length) {
       // Insert a new row
 
@@ -91,7 +101,7 @@ const EnterDetails = () => {
       localStorage.setItem('mobile', data.mobile);
     } else {
       console.log(users[0], 'testing data check qc');
-      if (!users[0].status || users[0].score==0) {
+      if (!users[0].status) {
         sessionStorage.setItem('mobile', users[0].mobile);
         localStorage.setItem('mobile', users[0].mobile);
         callOrderData(users[0].order_id);
