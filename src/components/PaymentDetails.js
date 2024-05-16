@@ -14,8 +14,10 @@ const PaymentDetails = () => {
   const [err, setErr] = React.useState(false);
 
   const navigate = useNavigate();
+  console.log('inside payment', 'getdata');
   let dataOne = sessionStorage.getItem('orderId');
-  if (!dataOne) navigate('/user-details');
+  let dataTwo = localStorage.getItem('orderId')
+
   const getOrderStatusApi = async () => {
     const base_url = `https://quizbackend-48178f0f17c2.herokuapp.com`;
     const apiLink = `${base_url}/api/v1/order/getOrderStatus`;
@@ -40,7 +42,7 @@ const PaymentDetails = () => {
     }
   };
 
-  if (!dataOne) navigate('/user-details');
+  if (!dataOne || !dataTwo) navigate('/user-details');
   React.useEffect(() => {
     if (localStorage.getItem('gameLink') != 0) {
       getOrderStatusApi();

@@ -75,17 +75,22 @@ const EnterDetails = () => {
     const orderid = orderId;
 
     let { data } = await axios.post(apiLink, { orderid: orderid });
-    const { data2, error2 } = await supabase
-      .from('users')
-      .update({
-        status: data.data.status == 'CHARGED' ? true : false,
-      })
-      .eq('mobile', localStorage.getItem('mobile'))
-      .select();
+    // const { data2, error2 } = await supabase
+    //   .from('users')
+    //   .update({
+    //     status: data.data.status == 'CHARGED' ? true : false,
+    //   })
+    //   .eq('mobile', localStorage.getItem('mobile'))
+    //   .select();
 
     if (data.data.status != 'CHARGED') {
+      return false;
+      console.log('inside of it', 'getdata');
+      setLoaderNav(false);
+      setMainLoader(false);
       navigate('/payment');
     } else {
+      return true;
       navigate('/');
     }
   };
@@ -135,8 +140,21 @@ const EnterDetails = () => {
 
       sessionStorage.setItem('mobile', users[0].mobile);
       localStorage.setItem('mobile', users[0].mobile);
+      sessionStorage.setItem('orderId', users[0].order_id);
+      localStorage.setItem('orderId', users[0].order_id);
       if (orderData && score == 0) {
-        await getOrderStatusApi(orderData);
+        console.log(orderData, score, 'getdatag');
+        let stat = await getOrderStatusApi(orderData);
+        console.log(stat, 'getdata');
+        if (!stat) {
+          setLoaderNav(false);
+          setMainLoader(false);
+          navigate('/payment');
+        } else {
+          setLoaderNav(false);
+          setMainLoader(false);
+          navigate('/');
+        }
       }
       // console.log(users[0], 'testing data check qc');
       // if (!users[0].status) {
@@ -147,10 +165,10 @@ const EnterDetails = () => {
       //   // localStorage.setItem('orderId', users[0].order_id);
       //   // localStorage.setItem('gameLink', 0);
       //   // navigate('/payment');
-      // } else {
-      alert('number already exists');
-      setMainLoader(false);
-      // }
+      else {
+        alert('number already exists');
+        setMainLoader(false);
+      }
     }
 
     // console.log(users, 'data');
