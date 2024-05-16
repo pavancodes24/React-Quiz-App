@@ -129,7 +129,7 @@ const EnterDetails = () => {
       sessionStorage.setItem('mobile', data.mobile);
       localStorage.setItem('mobile', data.mobile);
     } else {
-      const orderData = users[0].status;
+      const orderData = users[0].order_id;
 
       const score = users[0].score;
 
