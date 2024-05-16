@@ -116,7 +116,7 @@ const EnterDetails = () => {
     //   }
     // }
 
-    if (!users.length) {
+    if (!users.length || !users[0]?.order_id) {
       // Insert a new row
 
       const { output, errorInsert } = await supabase
@@ -129,6 +129,15 @@ const EnterDetails = () => {
       sessionStorage.setItem('mobile', data.mobile);
       localStorage.setItem('mobile', data.mobile);
     } else {
+      const orderData = users[0].status;
+
+      const score = users[0].score;
+
+      sessionStorage.setItem('mobile', users[0].mobile);
+      localStorage.setItem('mobile', users[0].mobile);
+      if (orderData && score == 0) {
+        await getOrderStatusApi(orderData);
+      }
       // console.log(users[0], 'testing data check qc');
       // if (!users[0].status) {
       //   sessionStorage.setItem('mobile', users[0].mobile);
