@@ -140,7 +140,7 @@ const PaymentDetails = () => {
     }
     const url = `amazonpay://upi/pay?pa=${pa}&pn=${pn}&am=${am}&tr=${transactionId}&mc=${mc}`;
 
-    console.log(url, 'url for apple intent');
+   
     window.location.href = url;
   };
 
