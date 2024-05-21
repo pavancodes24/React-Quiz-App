@@ -16,7 +16,7 @@ const PaymentDetails = () => {
   const navigate = useNavigate();
   console.log('inside payment', 'getdata');
   let dataOne = sessionStorage.getItem('orderId');
-  let dataTwo = localStorage.getItem('orderId')
+  let dataTwo = localStorage.getItem('orderId');
 
   const getOrderStatusApi = async () => {
     const base_url = `https://quizbackend-48178f0f17c2.herokuapp.com`;
@@ -139,6 +139,8 @@ const PaymentDetails = () => {
       navigate('/user-details');
     }
     const url = `amazonpay://upi/pay?pa=${pa}&pn=${pn}&am=${am}&tr=${transactionId}&mc=${mc}`;
+
+    console.log(url, 'url for apple intent');
     window.location.href = url;
   };
 
